@@ -33,8 +33,11 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
         View::share('globalName', 'global gesetzter Wert');
         View::share('currentTimestamp', Carbon::now()->timestamp);
+/*
+ * set https protocol, if environment is not local
         if(!$this->app->environment('local')) {
             URL::forceScheme('https');
         }
+*/
     }
 }
