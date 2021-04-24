@@ -1,0 +1,2 @@
+
+https://medium.com/@larapeak/install-font-awesome-in-laravel-7-x-and-tailwindcss-d90f1ebfd5c0

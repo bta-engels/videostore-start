@@ -1,0 +1,3 @@
+Nur für Mac Benutzer:
+im user-verzeichnis .bash_profile zeile am ende hinzufügen:
+export PATH="/Applications/XAMPP/bin:$PATH"

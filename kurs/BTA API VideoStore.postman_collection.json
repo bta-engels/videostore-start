@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "f8605438-d515-4a6b-adb6-e7347433adbf",
+		"name": "BTA API VideoStore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Todo Liste",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://videostore.loc/api/todos",
+					"protocol": "http",
+					"host": [
+						"videostore",
+						"loc"
+					],
+					"path": [
+						"api",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Todo Show",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://videostore.loc/api/todos/1",
+					"protocol": "http",
+					"host": [
+						"videostore",
+						"loc"
+					],
+					"path": [
+						"api",
+						"todos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Todo Create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "done",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "text",
+							"value": "Ein Neuer Eintrag",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://videostore.loc/api/todos",
+					"protocol": "http",
+					"host": [
+						"videostore",
+						"loc"
+					],
+					"path": [
+						"api",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Todo Update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "text",
+							"value": "Zähneputzen",
+							"type": "text"
+						},
+						{
+							"key": "done",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://videostore.loc/api/todos/1",
+					"protocol": "http",
+					"host": [
+						"videostore",
+						"loc"
+					],
+					"path": [
+						"api",
+						"todos",
+						"1"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Todo Destroy",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://videostore.loc/api/todos/1",
+					"protocol": "http",
+					"host": [
+						"videostore",
+						"loc"
+					],
+					"path": [
+						"api",
+						"todos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
