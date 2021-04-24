@@ -32,10 +32,16 @@ else
     echo "APP_KEY seems to be valid: $appKey"
 fi
 
-echo "generate Model-Classes: Author, Movie, Todo"
-php artisan make:model --force Author
-php artisan make:model --force Movie
-php artisan make:model --force Todo
+echo "generate Model-Classes: Author, Movie, Todo if not exist"
+if [ ! -f app/Models/Author.php ]; then
+	php artisan make:model Author
+fi
+if [ ! -f app/Models/Movie.php ]; then
+	php artisan make:model Movie
+fi
+if [ ! -f app/Models/Todo.php ]; then
+	php artisan make:model Todo
+fi
 git add app/Models/*
 
 echo "migrate database tables"

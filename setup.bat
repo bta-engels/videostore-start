@@ -17,10 +17,17 @@ if NOT exist .htaccess (
 echo generate app key
 php artisan key:generate
 
-echo generate Model-Classes: Author, Movie, Todo
-php artisan make:model --force Author
-php artisan make:model --force Movie
-php artisan make:model --force Todo
+echo generate Model-Classes: Author, Movie, Todo if not exist
+if NOT exist app/Models/Author.php (
+	php artisan make:model --force Author
+)
+if NOT exist app/Models/Movie.php (
+	php artisan make:model Movie
+)
+if NOT exist app/Models/Todo.php (
+	php artisan make:model Todo
+)
+
 git add app/Models/*
 
 echo migrate database tables
