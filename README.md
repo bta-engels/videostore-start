@@ -40,9 +40,7 @@ killall Finder
 #### Zum Testen der API-Requests kannst Du Googles Postman nutzen
 https://www.getpostman.com/
 
-Wenn installiert, dann kannst Du hier die zu testenden Requests anlegen und ausführen:
-![Postman](https://raw.githubusercontent.com/berndengels/bta-videostore/master/public/assets/postman.jpg)
-
+## Extra PHP Pakete (sind bereits installiert)
 #### Fehlermeldungen per Email
 
 Installations Schritte:
@@ -71,6 +69,18 @@ unbedingt den Parameter 'toEmailAddress' setzen (Eure Email-Adresse):
 ```
 MacOSX: Postfix als Sendmail-Server einrichten:
 https://gist.github.com/loziju/66d3f024e102704ff5222e54a4bfd50e
+
+#### PHPStorm IDE-Helper
+https://github.com/barryvdh/laravel-ide-helper
+
+#### Form Components
+https://github.com/protonemedia/laravel-form-components
+
+#### DOM-Pdf
+https://github.com/barryvdh/laravel-dompdf
+
+#### Laravel API-Token-Authentifizierung (Sanctum)
+https://laravel.com/docs/8.x/sanctum
 
 extras:
 - https://laravel.com/docs/8.x/valet
