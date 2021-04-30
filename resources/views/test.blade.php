@@ -5,6 +5,7 @@
 
 @section('content')
     <div>
+        <!-- main -->
         <p>Test Seite</p>
     </div>
 @endsection
