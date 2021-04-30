@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\RoutesController;
-
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\MovieController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +24,12 @@ Route::get('routes', [RoutesController::class, 'index'])
     ->name('routes')
     ->middleware('auth')
 ;
+
+Route::get('/authors', [AuthorController::class, 'index'])->name('authors');
+Route::get('/authors/{author}', [AuthorController::class, 'show'])->name('authors.show');
+
+Route::get('/movies', [MovieController::class, 'index'])->name('movies');
+Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
 
 // wenn eine route aufgerufen wird, die nicht definiert wurde
 Route::fallback(function() {
