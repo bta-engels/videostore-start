@@ -24,6 +24,7 @@ killall Finder
 
 #### Apache -> httpd-vhosts.conf
 ```
+# falls noch nicht vorhanden
 <VirtualHost *:80>
     ServerName localhost
     DocumentRoot "htdocs"
