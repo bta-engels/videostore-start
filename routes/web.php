@@ -24,7 +24,6 @@ Route::get('routes', [RoutesController::class, 'index'])
     ->name('routes')
     ->middleware('auth')
 ;
-
 Route::get('/authors', [AuthorController::class, 'index'])->name('authors');
 Route::get('/authors/{author}', [AuthorController::class, 'show'])->name('authors.show');
 

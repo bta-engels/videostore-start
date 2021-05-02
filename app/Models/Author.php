@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Author extends Model
 {
     use HasFactory;
+    // laravel expect table-name as plural from class name
     //protected $table = 'authors';
     protected $appends = ['name'];
 

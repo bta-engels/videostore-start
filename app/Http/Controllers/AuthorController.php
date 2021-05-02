@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class AuthorController extends Controller
 {
@@ -37,7 +39,6 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -48,7 +49,6 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -59,7 +59,6 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        //
     }
 
     /**
@@ -71,7 +70,6 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
     }
 
     /**
