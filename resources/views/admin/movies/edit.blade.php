@@ -3,7 +3,7 @@
 @section('header','Edit Movie')
 
 @section('content')
-    <x-form :action="route('movies.update', ['movie' => $movie->id])">
+    <x-form :action="route('movies.update', ['movie' => $movie->id])" enctype="multipart/form-data">
     @bind($movie)
         <x-form-select name="author_id" label="Autor" :options="$authors" />
         <x-form-input name="title" label="Titel" />

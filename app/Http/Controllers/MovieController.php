@@ -21,6 +21,7 @@ class MovieController extends Controller
         ;
         $this->authors->prepend('Bitte wählen', '');
     }
+
     /**
      * Display a listing of the resource.
      *
