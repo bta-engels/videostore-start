@@ -1,0 +1,28 @@
+- Migration für Customers
+Tabelle: customers
+Spalten:
+	- id (primaryKey)
+	- name (string 50)
+	- email (string 50)
+	- created_at (timestamp)
+	- updated_at (timestamp)
+
+- Migration für Orders
+Tabelle: orders
+Spalten:
+	- id (primaryKey)
+	- customer_id (bigInt unsigned)
+	- price_total (decimal 8,2 unsigned)
+	- created_at (timestamp)
+	- updated_at (timestamp)
+	Fremdschlüssel: customer_id
+
+- Migration für OrderItems
+Tabelle: order_items
+Spalten:
+	- id (primaryKey)
+	- order_id (bigInt unsigned)
+	- movie_id (bigInt unsigned)
+	- quantity (int unsigned)
+	- price_total (decimal 8,2 unsigned)
+	Fremdschlüssel: order_id, movie_id

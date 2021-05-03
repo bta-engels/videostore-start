@@ -5,7 +5,7 @@
 
 @section('content')
     <div>
-{{--   TEST   --}}
+        <!-- bernd -->
         <p>Test Seite</p>
     </div>
 @endsection

@@ -9,15 +9,8 @@ class Movie extends Model
 {
     use HasFactory;
 
-    /*
-     * Get the author of the movie
-     */
-    public function author() {
-        return $this->belongsTo(Author::class);
-    }
-
-    public function __toString()
+    public function author()
     {
-        return "$this->title";
+        return $this->belongsTo(Author::class);
     }
 }
