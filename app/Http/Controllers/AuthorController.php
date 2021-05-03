@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthorRequest;
 use App\Models\Author;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
 
 class AuthorController extends Controller
 {
@@ -53,8 +53,17 @@ class AuthorController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(AuthorRequest $request)
     {
+        Author::create($request->validated());
+
+/*
+        $author->firstname  = $request->post('firstname');
+        $author->lastname   = $request->post('lastname');
+        $author->save();
+*/
+        return redirect('authors');
+
     }
 
     /**
@@ -75,8 +84,17 @@ class AuthorController extends Controller
      * @param Author $author
      * @return Response
      */
-    public function update(Request $request, Author $author)
+    public function update(AuthorRequest $request, Author $author)
     {
+/*
+        $author->firstname  = $request->post('firstname');
+        $author->lastname   = $request->post('lastname');
+        $author->save();
+*/
+//        $data = $request->except('_token');
+        $author->update($request->validated());
+
+        return redirect('authors');
     }
 
     /**
@@ -87,6 +105,6 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        return redirect('authors');
     }
 }

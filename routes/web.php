@@ -44,6 +44,17 @@ Route::group([
 
 Route::get('/movies', [MovieController::class, 'index'])->name('movies');
 Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
+// movie routen für verwaltung
+Route::group([
+    'prefix'        => 'movies',
+    'middleware'    => 'auth',
+], function() {
+    Route::get('create', [MovieController::class, 'create'])->name('movies.create');
+    Route::get('edit/{movie}', [MovieController::class, 'edit'])->name('movies.edit');
+    Route::get('destroy/{movie}', [MovieController::class, 'destroy'])->name('movies.destroy');
+    Route::post('store', [MovieController::class, 'store'])->name('movies.store');
+    Route::post('update/{movie}', [MovieController::class, 'update'])->name('movies.update');
+});
 
 // wenn eine route aufgerufen wird, die nicht definiert wurde
 Route::fallback(function() {

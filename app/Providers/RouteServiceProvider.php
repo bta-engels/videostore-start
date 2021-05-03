@@ -37,6 +37,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::pattern('id', '[0-9]+');
         Route::pattern('author', '[0-9]+');
+        Route::pattern('movie', '[0-9]+');
 
         $this->configureRateLimiting();
 
