@@ -18,7 +18,12 @@ class AuthorController extends Controller
     public function index()
     {
         $data = Author::paginate(10);
-        return view('public.authors.index', compact('data'));
+        //oder auth()->check()
+        if(Auth::check()) {
+            return view('admin.authors.index', compact('data'));
+        } else {
+            return view('public.authors.index', compact('data'));
+        }
     }
 
     /**
@@ -39,6 +44,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
+        return view('admin.authors.create');
     }
 
     /**
@@ -59,6 +65,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
+        return view('admin.authors.edit', compact('author'));
     }
 
     /**

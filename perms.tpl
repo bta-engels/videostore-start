@@ -1,8 +1,8 @@
 #!/bin/sh
-group=stuff
+group=daemon
 
-chgrp -R $group storage/logs storage/framework storage/app bootstrap/cache database/dumps
-chmod -R ugo+rwx storage/logs storage/framework storage/app bootstrap/cache database/dumps
-chgrp -R $group .
-chmod -R g+rwX .
-find . -type d -exec chmod g+s '{}' +
+sudo chgrp -R $group storage/logs storage/framework storage/app bootstrap/cache database/dumps
+sudo chmod -R ugo+rwx storage/logs storage/framework storage/app bootstrap/cache database/dumps
+sudo chgrp -R $group .
+sudo chmod -R g+rwX .
+sudo find . -type d -exec chmod g+s '{}' +
