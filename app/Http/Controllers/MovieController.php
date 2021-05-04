@@ -19,7 +19,7 @@ class MovieController extends Controller
             ->keyBy('id')
             ->map->name
         ;
-        $this->authors->prepend('Bitte wählen', '');
+        $this->authors->prepend('Bitte wählen', null);
     }
 
     /**
