@@ -22,17 +22,23 @@ class MovieRequest extends FormRequest
     {
         $this->merge(['price' => str_replace(',','.', $this->price)]);
     }
-    public function validationData()
+
+    public function validated()
     {
-        $allData = $this->all();
+        $validated = parent::validated();
 
         if (request()->hasFile('image')) {
             $file = $this->file('image');
-            $hashName = $file->hashName();
-            // upload und db eintrag
+            // @todo: validierung abfragen
+            if($file->isValid()) {
+                $hashName = $file->hashName();
+                // @todo: upload und db eintrag
+                $file->storeAs('images', $hashName, 'public');
+                $validated['image'] = $hashName;
+            }
         }
 
-        return $allData;
+        return $validated;
     }
 
     /**
