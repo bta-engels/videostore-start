@@ -34,6 +34,8 @@ class MovieRequest extends FormRequest
                 $hashName = $file->hashName();
                 // @todo: upload und db eintrag
                 $file->storeAs('images', $hashName, 'public');
+                // andere variante
+//                Storage::disk('public')->putFileAs('images', $file, $hashName);
                 $validated['image'] = $hashName;
             }
         }
