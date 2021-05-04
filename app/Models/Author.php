@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * App\Models\Author
@@ -24,7 +25,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|Author whereId($value)
  * @method static Builder|Author whereLastname($value)
  * @mixin Eloquent
+ * @method static Builder|Author options()
  */
+
 class Author extends Model
 {
     use HasFactory;
@@ -33,6 +36,21 @@ class Author extends Model
     public $timestamps = false;
     protected $fillable = ['firstname','lastname'];
     protected $appends = ['name'];
+
+    public function scopeOptions(Builder $query)
+    {
+        $key = config('cache.key_authors_options');
+        // wenn cache nicht vorhanden für
+        if(!Cache::has($key)) {
+            $authors = $query->get()
+                ->keyBy('id')
+                ->map->name;
+            $authors->prepend('Bitte wählen', null);
+            Cache::put($key, $authors, 7200);
+        }
+
+        return Cache::get($key);
+    }
 
     public function getNameAttribute()
     {

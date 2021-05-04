@@ -4,7 +4,7 @@
 
 @section('content')
     <x-form :action="route('movies.store')" enctype="multipart/form-data">
-        <x-form-select name="author_id" label="Autor" :options="$auhtors" />
+        <x-form-select name="author_id" label="Autor" :options="$authorOptions" />
         <x-form-input name="title" label="Titel" />
         <x-form-input name="price" label="Preis" />
         <x-form-input type="file" name="image" label="Bild" />

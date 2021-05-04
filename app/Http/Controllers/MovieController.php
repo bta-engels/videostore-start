@@ -15,11 +15,7 @@ class MovieController extends Controller
 
     public function __construct()
     {
-        $this->authors = Author::all()
-            ->keyBy('id')
-            ->map->name
-        ;
-        $this->authors->prepend('Bitte wählen', null);
+        $this->authors = Author::options();
     }
 
     /**
@@ -55,7 +51,7 @@ class MovieController extends Controller
      */
     public function create()
     {
-        return view('admin.movies.create', ['auhtors' => $this->authors]);
+        return view('admin.movies.create');
     }
 
     /**
@@ -78,8 +74,7 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        $authors = $this->authors;
-        return view('admin.movies.edit', compact('movie','authors'));
+        return view('admin.movies.edit', compact('movie'));
     }
 
     /**
