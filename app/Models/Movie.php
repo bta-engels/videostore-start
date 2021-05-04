@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Movie
@@ -13,25 +16,26 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $title
  * @property string $price
  * @property string|null $image
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Author $author
- * @method static \Illuminate\Database\Eloquent\Builder|Movie newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Movie newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Movie query()
- * @method static \Illuminate\Database\Eloquent\Builder|Movie whereAuthorId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Movie whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Movie whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Movie whereImage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Movie wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Movie whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Movie whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Author $author
+ * @method static Builder|Movie newModelQuery()
+ * @method static Builder|Movie newQuery()
+ * @method static Builder|Movie query()
+ * @method static Builder|Movie whereAuthorId($value)
+ * @method static Builder|Movie whereCreatedAt($value)
+ * @method static Builder|Movie whereId($value)
+ * @method static Builder|Movie whereImage($value)
+ * @method static Builder|Movie wherePrice($value)
+ * @method static Builder|Movie whereTitle($value)
+ * @method static Builder|Movie whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Movie extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'price', 'image', 'author_id'];
+    protected $fillable = ['author_id', 'title', 'price', 'image'];
+
     public function author()
     {
         return $this->belongsTo(Author::class);

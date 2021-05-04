@@ -53,7 +53,16 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
-            'permission' => 0666,
+            'permissions' => [
+                'file' => [
+                    'public' => 0666,
+                    'private' => 0600,
+                ],
+                'dir' => [
+                    'public' => 0777,
+                    'private' => 0700,
+                ],
+            ],
         ],
 
         's3' => [

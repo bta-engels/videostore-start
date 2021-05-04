@@ -3,7 +3,7 @@
 @section('header','Create Movie')
 
 @section('content')
-    <x-form :action="route('movies.store')">
+    <x-form :action="route('movies.store')" enctype="multipart/form-data">
 
         <x-form-select name="author_id" :options="$authors" label="Autor" />
         <x-form-input name="title" label="Titel" />

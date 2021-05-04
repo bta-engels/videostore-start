@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,15 +15,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $firstname
  * @property string $lastname
  * @property-read mixed $name
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Movie[] $movies
+ * @property-read Collection|Movie[] $movies
  * @property-read int|null $movies_count
- * @method static \Illuminate\Database\Eloquent\Builder|Author newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Author newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Author query()
- * @method static \Illuminate\Database\Eloquent\Builder|Author whereFirstname($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Author whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Author whereLastname($value)
- * @mixin \Eloquent
+ * @method static Builder|Author newModelQuery()
+ * @method static Builder|Author newQuery()
+ * @method static Builder|Author query()
+ * @method static Builder|Author whereFirstname($value)
+ * @method static Builder|Author whereId($value)
+ * @method static Builder|Author whereLastname($value)
+ * @mixin Eloquent
  */
 class Author extends Model
 {
