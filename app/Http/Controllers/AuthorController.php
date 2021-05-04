@@ -64,16 +64,16 @@ class AuthorController extends Controller
      */
     public function store(AuthorRequest $request)
     {
-        Author::create($request->validated());
-        Cache::delete($this->keyAuthorOptions);
-
 /*
+        $author = new Author();
         $author->firstname  = $request->post('firstname');
         $author->lastname   = $request->post('lastname');
         $author->save();
 */
-        return redirect('authors');
+        Author::create($request->validated());
+        Cache::delete($this->keyAuthorOptions);
 
+        return redirect('authors');
     }
 
     /**
@@ -101,7 +101,6 @@ class AuthorController extends Controller
         $author->lastname   = $request->post('lastname');
         $author->save();
 */
-//        $data = $request->except('_token');
         $author->update($request->validated());
         Cache::delete($this->keyAuthorOptions);
 
