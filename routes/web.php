@@ -24,25 +24,61 @@ Route::get('routes', [RoutesController::class, 'index'])
     ->name('routes')
     ->middleware('auth')
 ;
-Route::get('/authors', [AuthorController::class, 'index'])->name('authors');
-Route::get('/authors/{author}', [AuthorController::class, 'show'])->name('authors.show');
-
-Route::get('/movies', [MovieController::class, 'index'])->name('movies');
-Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
-
-Route::get('/authors', [AuthorController::class, 'index'])
-    ->name('authors');
 
 
-Route::get('/authors/{author}', [AuthorController::class, 'show'])
-    ->name('authors.show');
+Route::group([
+    'prefix'    =>  'authors'
+], function() {
+    Route::get('', [AuthorController::class, 'index'])
+        ->name('authors');
+    Route::get('{author}', [AuthorController::class, 'show'])
+        ->name('authors.show');
+        //->where('author', '[0-9]+'); // Make sure the id only contains numbers -> Better in RouteServiceProvider!!!
+});
 
-Route::get('/movies', [MovieController::class, 'index'])
-    ->name('movies');
+Route::group([
+    'prefix'        => 'authors',
+    'middleware'    => 'auth'
+], function() {
+    Route::get('create', [AuthorController::class, 'create'])
+        ->name('authors.create');
+    Route::get('edit/{author}', [AuthorController::class, 'edit'])
+        ->name('authors.edit');
+    Route::get('destroy/{author}', [AuthorController::class, 'destroy'])
+        ->name('authors.destroy');
+    Route::post('store', [AuthorController::class, 'store'])
+        ->name('authors.store');
+    Route::post('update/{author}', [AuthorController::class, 'update'])
+        ->name('authors.update');
+});
 
 
-Route::get('/movies/{movie}', [MovieController::class, 'show'])
-    ->name('movies.show');
+Route::group([
+    'prefix'    =>  'movies'
+], function() {
+    Route::get('', [MovieController::class, 'index'])
+        ->name('movies');
+    Route::get('{movie}', [MovieController::class, 'show'])
+        ->name('movies.show');
+    //->where('author', '[0-9]+'); // Make sure the id only contains numbers -> Better in RouteServiceProvider!!!
+});
+
+Route::group([
+    'prefix'        => 'movies',
+    'middleware'    => 'auth'
+], function() {
+    Route::get('create', [MovieController::class, 'create'])
+        ->name('movies.create');
+    Route::get('edit/{movie}', [MovieController::class, 'edit'])
+        ->name('movies.edit');
+    Route::get('destroy/{movie}', [MovieController::class, 'destroy'])
+        ->name('movies.destroy');
+    Route::post('store', [MovieController::class, 'store'])
+        ->name('movies.store');
+    Route::post('update/{movie}', [MovieController::class, 'update'])
+        ->name('movies.update');
+});
+
 
 // wenn eine route aufgerufen wird, die nicht definiert wurde
 Route::fallback(function() {

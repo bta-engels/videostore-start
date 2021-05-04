@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthorRequest;
 use App\Models\Author;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,7 +19,11 @@ class AuthorController extends Controller
     public function index()
     {
         $data = Author::paginate(10);
-        return view('public.authors.index', compact('data'));
+        if(Auth::check()) { //auth()->check()
+            return view('admin.authors.index', compact('data'));
+        } else {
+            return view('public.authors.index', compact('data'));
+        }
     }
 
     /**
@@ -39,6 +44,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
+        return view('admin.authors.create');
     }
 
     /**
@@ -47,8 +53,26 @@ class AuthorController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(AuthorRequest $request)
     {
+
+        Author::create($request->validated());
+        /*
+            $data = $request->except('_token');
+            Author::create($data);
+        */
+        /*
+            $data = $request->except('_token');
+            $author = new Author();
+            $author->insert($data);
+        */
+        /*
+            $author = new Author();
+            $author->firstname = $request->post('firstname');
+            $author->lastname = $request->post('lastname');
+            $author->save();
+        */
+        return redirect('authors');
     }
 
     /**
@@ -59,6 +83,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
+        return view('admin.authors.edit', compact('author'));
     }
 
     /**
@@ -68,8 +93,19 @@ class AuthorController extends Controller
      * @param Author $author
      * @return Response
      */
-    public function update(Request $request, Author $author)
+    public function update(AuthorRequest $request, Author $author)
     {
+        $author->update($request->validated());
+        /*
+        $data = $request->except('_token');
+        $author->update($data);
+        */
+        /*
+        $author->firstname = $request->post('firstname');
+        $author->lastname = $request->post('lastname');
+        $author->save();
+        */
+        return redirect('authors');
     }
 
     /**
@@ -80,6 +116,7 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
+        return redirect('authors');
     }
 }

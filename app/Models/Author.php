@@ -5,12 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Author
+ *
+ * @property int $id
+ * @property string $firstname
+ * @property string $lastname
+ * @property-read mixed $name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Movie[] $movies
+ * @property-read int|null $movies_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Author newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Author newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Author query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Author whereFirstname($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Author whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Author whereLastname($value)
+ * @mixin \Eloquent
+ */
 class Author extends Model
 {
     use HasFactory;
     // laravel expect table-name as plural from class name
     //protected $table = 'authors';
     protected $appends = ['name'];
+    public $timestamps = false;
+    protected $fillable = ['firstname', 'lastname'];
 
     public function getNameAttribute()
     {
