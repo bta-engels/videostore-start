@@ -42,8 +42,10 @@ Route::group([
     Route::post('update/{author}', [AuthorController::class, 'update'])->name('authors.update');
 });
 
-Route::get('/movies', [MovieController::class, 'index'])->name('movies');
+Route::match(['get','post'], '/movies', [MovieController::class, 'index'])->name('movies');
+//Route::get('/movies', [MovieController::class, 'index'])->name('movies');
 Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
+
 // movie routen für verwaltung
 Route::group([
     'prefix'        => 'movies',

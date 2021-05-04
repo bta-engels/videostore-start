@@ -23,13 +23,15 @@ class MovieController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $selectedAuthor = $request->post('selectedAuthor');
         $data = Movie::paginate(50);
+
         if(Auth::check()) {
-            return view('admin.movies.index', compact('data'));
+            return view('admin.movies.index', compact('data', 'selectedAuthor'));
         } else {
-            return view('public.movies.index', compact('data'));
+            return view('public.movies.index', compact('data', 'selectedAuthor'));
         }
     }
 
