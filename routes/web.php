@@ -84,29 +84,33 @@ Route::group([
 });
 
 // Todo routes
+
+$controller = TodoController::class;
+$model = 'todo';
+$route = 'todos';
+
 Route::group([
-    'prefix'    =>  'todos'
-], function() {
-    Route::get('', [TodoController::class, 'index'])
+    'prefix'    =>  $route
+], function() use($controller, $model, $route) {
+    Route::get('', [$controller, 'index'])
         ->name('todos');
-    Route::get('{todo}', [TodoController::class, 'show'])
+    Route::get("{$model}", [$controller, 'show'])
         ->name('todos.show');
-    //->where('author', '[0-9]+'); // Make sure the id only contains numbers -> Better in RouteServiceProvider!!!
 });
 
 Route::group([
-    'prefix'        => 'todos',
+    'prefix'        => $route,
     'middleware'    => 'auth'
-], function() {
-    Route::get('create', [TodoController::class, 'create'])
+], function() use ($controller, $route, $model) {
+    Route::get('create', [$controller, 'create'])
         ->name('todos.create');
-    Route::get('edit/{todo}', [TodoController::class, 'edit'])
+    Route::get("edit/{$model}", [$controller, 'edit'])
         ->name('todos.edit');
-    Route::get('destroy/{todo}', [TodoController::class, 'destroy'])
+    Route::get("destroy/{$model}", [$controller, 'destroy'])
         ->name('todos.destroy');
-    Route::post('store', [TodoController::class, 'store'])
+    Route::post('store', [$controller, 'store'])
         ->name('todos.store');
-    Route::post('update/{todo}', [TodoController::class, 'update'])
+    Route::post("update/{$model}", [$controller, 'update'])
         ->name('todos.update');
 });
 

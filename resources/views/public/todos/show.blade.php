@@ -6,11 +6,9 @@
 @section('content')
     <div class="align-content-center">
         <h5>{{ $todo->id }} {{ $todo }}</h5>
-        @if($todo->done)
-            <h6>DONE</h6>
-        @else
-            <h6>NOT DONE</h6>
-        @endif
+        <h6>
+            {!! $todo->doneState !!}
+        </h6>
         <p>Erstellt: {{ $todo->created_at->format('d.m.Y H:i') }} Uhr</p>
         <p>Aktualisert: {{ $todo->updated_at->format('d.m.Y H:i') }} Uhr</p>
     </div>

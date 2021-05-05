@@ -38,11 +38,7 @@ class Todo extends Model
 
     public function getDoneStateAttribute()
     {
-        if($this->done) {
-            return "DONE";
-        } else {
-            return "NOT DONE";
-        }
+        return '<i class="fas fa-'. ($this->done ? 'check' : 'times') . ' "></i>';
     }
 
     public function __toString()
