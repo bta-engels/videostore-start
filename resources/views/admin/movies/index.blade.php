@@ -8,14 +8,16 @@
         <a role="button" class="btn btn-primary" href="{{ route('movies.create') }}">
             <i class="fas fa-plus-square"></i>Create new Movie</a>
         <div class="float-right row mr-3">
-            <div class="d-inline">
-                <x-form :action="route('movies')" class="row">
-                    <x-form-select class="col-auto" name="selectedAuthor" :options="$authorOptions" :default="$selectedAuthor" />
-                    <x-form-submit class="col-auto btn btn-sm btn-primary p-2 ml-1 h-100">
-                        <span>OK</span>
-                    </x-form-submit>
-                </x-form>
-            </div>
+{{--            <div class="d-inline">--}}
+{{--                <x-form :action="route('movies')" class="row">--}}
+{{--                    <x-form-select class="col-auto" name="selectedAuthor" :options="$authorOptions" :default="$selectedAuthor" />--}}
+{{--                    <x-form-submit class="col-auto btn btn-sm btn-primary p-2 ml-1 h-100">--}}
+{{--                        <span>OK</span>--}}
+{{--                    </x-form-submit>--}}
+{{--                </x-form>--}}
+{{--            </div>--}}
+
+            <x-select-author :options="$authorOptions" :author="$selectedAuthor" />
         </div>
     </div>
     <div class="mt-3">

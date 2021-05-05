@@ -4,8 +4,12 @@
 @section('header','Movies')
 
 @section('content')
-
-    <div>
+    <div class="m-0">
+        <div class="float-right row mr-3">
+            <x-select-author :options="$authorOptions" :author="$selectedAuthor" />
+        </div>
+    </div>
+    <div class="mt-3">
         <!-- hier todos tabellarisch darstellen -->
         <!-- if abfrage, ob welche vorhanden sind -->
 

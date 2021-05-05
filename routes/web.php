@@ -63,9 +63,9 @@ Route::group([
     //->where('author', '[0-9]+'); // Make sure the id only contains numbers -> Better in RouteServiceProvider!!!
 });
 
-Route::match(['get','post'], '/movies', [MovieController::class, 'index'])->name('movies');
-//Route::get('/movies', [MovieController::class, 'index'])->name('movies');
-Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
+//Route::match(['get','post'], '/movies', [MovieController::class, 'index'])->name('movies');
+////Route::get('/movies', [MovieController::class, 'index'])->name('movies');
+//Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
 
 // movie routen für verwaltung
 Route::group([
