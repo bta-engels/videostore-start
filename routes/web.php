@@ -1,8 +1,8 @@
 <?php
+use App\Http\Controllers\TodoController;
 use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\MovieController;
-use App\Http\Controllers\TodoController;
 use App\Http\Controllers\LanguageController;
 /*
 |--------------------------------------------------------------------------
@@ -84,7 +84,6 @@ Route::group([
 });
 
 // Todo routes
-
 $controller = TodoController::class;
 $model      = '{todo}';
 $route      = 'todos';
