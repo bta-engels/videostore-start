@@ -17,6 +17,11 @@ class TodoRequest extends FormRequest
         return Auth::check();
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge(['done' => $this->done ? 1 : 0]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

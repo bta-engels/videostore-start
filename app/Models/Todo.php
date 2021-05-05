@@ -31,4 +31,12 @@ use Illuminate\Support\Carbon;
 class Todo extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['text', 'done'];
+
+    public function __toString()
+    {
+        return $this->text;
+    }
+
 }
