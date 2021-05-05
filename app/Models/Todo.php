@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\TodoFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -30,6 +31,9 @@ use Illuminate\Support\Facades\App;
  * @mixin Eloquent
  * @property-read mixed $done_icon
  * @property-read mixed $done_state
+ * @property-read mixed $lang
+ * @property-read Collection|TodoLang[] $langs
+ * @property-read int|null $langs_count
  */
 class Todo extends Model
 {
