@@ -55,7 +55,7 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        $todo = Todo::create($request->validated());
+        Todo::create($request->validated());
         return redirect('todos');
     }
 
@@ -67,7 +67,6 @@ class TodoController extends Controller
      */
     public function edit(Todo $todo)
     {
-        $todo->text = $todo->lang;
         return view('admin.todos.edit', compact('todo'));
     }
 
