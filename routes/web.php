@@ -3,7 +3,6 @@ use App\Http\Controllers\TodoController;
 use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\MovieController;
-use App\Http\Controllers\TodoController;
 use App\Http\Controllers\LanguageController;
 /*
 |--------------------------------------------------------------------------
@@ -85,35 +84,10 @@ Route::group([
 });
 
 // Todo routes
-Route::group([
-    'prefix'    =>  'todos'
-], function() {
-    Route::get('', [TodoController::class, 'index'])
-        ->name('todos');
-    Route::get('{todo}', [TodoController::class, 'show'])
-        ->name('todos.show');
-    //->where('author', '[0-9]+'); // Make sure the id only contains numbers -> Better in RouteServiceProvider!!!
-});
-
-Route::group([
-    'prefix'        => 'todos',
-    'middleware'    => 'auth'
-], function() {
-    Route::get('create', [TodoController::class, 'create'])
-        ->name('todos.create');
-    Route::get('edit/{todo}', [TodoController::class, 'edit'])
-        ->name('todos.edit');
-    Route::get('destroy/{todo}', [TodoController::class, 'destroy'])
-        ->name('todos.destroy');
-    Route::post('store', [TodoController::class, 'store'])
-        ->name('todos.store');
-    Route::post('update/{todo}', [TodoController::class, 'update'])
-        ->name('todos.update');
-});
-
 $controller = TodoController::class;
 $model      = 'todo';
 $route      = 'todos';
+
 Route::group([
     'prefix'    =>  $route,
 ], function() use ($controller, $model, $route) {
@@ -121,7 +95,7 @@ Route::group([
     Route::get("{$model}", [$controller, 'show'])->name("$route.show");
 });
 Route::group([
-    'prefix'        => 'todos',
+    'prefix'        => $route,
     'middleware'    => 'auth',
 ], function() use ($controller, $model, $route) {
     Route::get('create', [$controller, 'create'])->name("$route.create");

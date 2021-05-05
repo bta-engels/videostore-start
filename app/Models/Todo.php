@@ -32,7 +32,7 @@ class Todo extends Model
 {
     use HasFactory;
 
-    protected $appends = ['doneState'];
+    protected $appends = ['doneState','doneIcon'];
 
     protected $fillable = ['text', 'done'];
 
@@ -43,6 +43,12 @@ class Todo extends Model
         } else {
             return "NOT DONE";
         }
+    }
+
+    public function getDoneIconAttribute()
+    {
+        $css = $this->done ? 'check' : 'times';
+        return "<i class=\"fas fa-$css\"></i>";
     }
 
     public function __toString()

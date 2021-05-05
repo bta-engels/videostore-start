@@ -28,7 +28,7 @@
                     </td>
 
                     <td>
-                        {{ $item->doneState }}
+                        {!! $item->doneIcon !!}
                     </td>
                     <td>
                         {{ $item->text  }}

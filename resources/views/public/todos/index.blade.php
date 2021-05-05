@@ -29,7 +29,7 @@
                         </td>
 
                         <td>
-                            {{ $item->done }}
+                            {!! $item->doneIcon !!}
                         </td>
                         <td>
                             {{ $item->text  }}
