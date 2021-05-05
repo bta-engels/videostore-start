@@ -22,12 +22,12 @@ use Illuminate\Support\Facades\App;
  * @method static \Illuminate\Database\Eloquent\Builder|TodoLang whereText($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TodoLang whereTodoId($value)
  * @mixin Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|TodoLang current()
  */
 class TodoLang extends Model
 {
     protected $table = 'todos_lang';
     protected $fillable = ['language_id', 'todo_id', 'text'];
-    protected $appends = ['current'];
     public $timestamps = false;
 
     public function __toString()

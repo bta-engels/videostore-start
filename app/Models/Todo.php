@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
+use Illuminate\Database\Query\JoinClause;
 
 /**
  * App\Models\Todo
@@ -34,12 +35,20 @@ use Illuminate\Support\Facades\App;
  * @property-read mixed $lang
  * @property-read Collection|TodoLang[] $langs
  * @property-read int|null $langs_count
+ * @method static Builder|Todo lang()
  */
 class Todo extends Model
 {
     use HasFactory;
+    private static $_lang;
     protected $appends = ['doneState','doneIcon','lang'];
     protected $fillable = ['text', 'done'];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::$_lang = Language::whereCode(App::getLocale())->first();
+    }
 
     public static function booted()
     {
@@ -53,16 +62,15 @@ class Todo extends Model
             });
         });
         static::updated(function (Todo $model) {
-            $lang = Language::whereCode(App::getLocale())->first();
             $where = [
                 'todo_id'      => $model->id,
-                'language_id'  => $lang->id,
+                'language_id'  => static::$_lang->id,
             ];
             TodoLang::where($where)
                 ->update([
                     'text'          => $model->text,
                     'todo_id'       => $model->id,
-                    'language_id'   => $lang->id,
+                    'language_id'   => static::$_lang->id,
                 ]);
         });
     }
@@ -82,9 +90,8 @@ class Todo extends Model
     }
 
     public function getLangAttribute() {
-        $lang = Language::whereCode(App::getLocale())->first();
         return $this->langs()
-            ->where('language_id', $lang->id)
+            ->whereLanguageId(static::$_lang->id)
             ->first()
         ;
     }
