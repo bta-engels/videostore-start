@@ -17,6 +17,11 @@ class TodoRequest extends FormRequest
         return Auth::check();
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge(['done' => $this->done ? 1 : 0]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,16 +30,16 @@ class TodoRequest extends FormRequest
     public function rules()
     {
         return [
-            'text'  => 'required|min:5',
-            'done'  => '',
+            'done'     =>  '',
+            'text'     =>  'required|min:5'
         ];
     }
 
     public function messages()
     {
         return [
-            'text.required'  => 'Bitte einen Text eingeben',
-            'text.min'  => 'Der Text muß mindestens :min Zeichen enthalten',
+            'text.required'  =>  'Bitte eine Beschreibung angeben!',
+            'text.min'  =>  'Bitte wenigstens :min Zeichen als Beschreibung angeben!'
         ];
     }
 }

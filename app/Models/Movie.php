@@ -36,6 +36,10 @@ class Movie extends Model
     use HasFactory;
     protected $fillable = ['author_id', 'title', 'price', 'image'];
 
+    public function withAuthor($id) {
+        return self::where("id", $id);
+    }
+
     public function author()
     {
         return $this->belongsTo(Author::class);

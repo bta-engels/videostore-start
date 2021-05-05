@@ -3,6 +3,7 @@ use App\Http\Controllers\TodoController;
 use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\TodoController;
 use App\Http\Controllers\LanguageController;
 /*
 |--------------------------------------------------------------------------
@@ -28,37 +29,86 @@ Route::get('routes', [RoutesController::class, 'index'])
     ->middleware('auth')
 ;
 
+// Author routes
 Route::group([
-    'prefix'    =>  'authors',
+    'prefix'    =>  'authors'
 ], function() {
-    Route::get('', [AuthorController::class, 'index'])->name('authors');
-    Route::get('{author}', [AuthorController::class, 'show'])->name('authors.show');
-});
-Route::group([
-    'prefix'        => 'authors',
-    'middleware'    => 'auth',
-], function() {
-    Route::get('create', [AuthorController::class, 'create'])->name('authors.create');
-    Route::get('edit/{author}', [AuthorController::class, 'edit'])->name('authors.edit');
-    Route::get('destroy/{author}', [AuthorController::class, 'destroy'])->name('authors.destroy');
-    Route::post('store', [AuthorController::class, 'store'])->name('authors.store');
-    Route::post('update/{author}', [AuthorController::class, 'update'])->name('authors.update');
+    Route::get('', [AuthorController::class, 'index'])
+        ->name('authors');
+    Route::get('{author}', [AuthorController::class, 'show'])
+        ->name('authors.show');
+        //->where('author', '[0-9]+'); // Make sure the id only contains numbers -> Better in RouteServiceProvider!!!
 });
 
-Route::match(['get','post'], '/movies', [MovieController::class, 'index'])->name('movies');
-//Route::get('/movies', [MovieController::class, 'index'])->name('movies');
-Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
+Route::group([
+    'prefix'        => 'authors',
+    'middleware'    => 'auth'
+], function() {
+    Route::get('create', [AuthorController::class, 'create'])
+        ->name('authors.create');
+    Route::get('edit/{author}', [AuthorController::class, 'edit'])
+        ->name('authors.edit');
+    Route::get('destroy/{author}', [AuthorController::class, 'destroy'])
+        ->name('authors.destroy');
+    Route::post('store', [AuthorController::class, 'store'])
+        ->name('authors.store');
+    Route::post('update/{author}', [AuthorController::class, 'update'])
+        ->name('authors.update');
+});
+
+// Movie routes
+Route::group([
+    'prefix'    =>  'movies'
+], function() {
+    Route::match(['get', 'post'], '', [MovieController::class, 'index'])->name('movies');
+//    Route::get('', [MovieController::class, 'index'])->name('movies');
+    Route::get('{movie}', [MovieController::class, 'show'])
+        ->name('movies.show');
+    //->where('author', '[0-9]+'); // Make sure the id only contains numbers -> Better in RouteServiceProvider!!!
+});
 
 // movie routen für verwaltung
 Route::group([
     'prefix'        => 'movies',
-    'middleware'    => 'auth',
+    'middleware'    => 'auth'
 ], function() {
-    Route::get('create', [MovieController::class, 'create'])->name('movies.create');
-    Route::get('edit/{movie}', [MovieController::class, 'edit'])->name('movies.edit');
-    Route::get('destroy/{movie}', [MovieController::class, 'destroy'])->name('movies.destroy');
-    Route::post('store', [MovieController::class, 'store'])->name('movies.store');
-    Route::post('update/{movie}', [MovieController::class, 'update'])->name('movies.update');
+    Route::get('create', [MovieController::class, 'create'])
+        ->name('movies.create');
+    Route::get('edit/{movie}', [MovieController::class, 'edit'])
+        ->name('movies.edit');
+    Route::get('destroy/{movie}', [MovieController::class, 'destroy'])
+        ->name('movies.destroy');
+    Route::post('store', [MovieController::class, 'store'])
+        ->name('movies.store');
+    Route::post('update/{movie}', [MovieController::class, 'update'])
+        ->name('movies.update');
+});
+
+// Todo routes
+Route::group([
+    'prefix'    =>  'todos'
+], function() {
+    Route::get('', [TodoController::class, 'index'])
+        ->name('todos');
+    Route::get('{todo}', [TodoController::class, 'show'])
+        ->name('todos.show');
+    //->where('author', '[0-9]+'); // Make sure the id only contains numbers -> Better in RouteServiceProvider!!!
+});
+
+Route::group([
+    'prefix'        => 'todos',
+    'middleware'    => 'auth'
+], function() {
+    Route::get('create', [TodoController::class, 'create'])
+        ->name('todos.create');
+    Route::get('edit/{todo}', [TodoController::class, 'edit'])
+        ->name('todos.edit');
+    Route::get('destroy/{todo}', [TodoController::class, 'destroy'])
+        ->name('todos.destroy');
+    Route::post('store', [TodoController::class, 'store'])
+        ->name('todos.store');
+    Route::post('update/{todo}', [TodoController::class, 'update'])
+        ->name('todos.update');
 });
 
 $controller = TodoController::class;

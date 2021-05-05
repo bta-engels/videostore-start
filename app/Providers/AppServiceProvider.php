@@ -35,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
         View::share('globalName', 'global gesetzter Wert');
         View::share('authorOptions', Author::options());
         View::share('currentTimestamp', Carbon::now()->timestamp);
+        View::share('authorOptions', Author::options());
 /*
  * set https protocol, if environment is not local
         if(!$this->app->environment('local')) {

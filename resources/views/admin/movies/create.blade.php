@@ -7,9 +7,11 @@
         <x-form-select name="author_id" label="Autor" :options="$authorOptions" />
         <x-form-input name="title" label="Titel" />
         <x-form-input name="price" label="Preis" />
+{{--        <x-form-input type="number" step="0.01" name="price" label="Preis" />--}}
+
         <x-form-input type="file" name="image" label="Bild" />
         <x-form-submit>
-            <span>Movie anlegen</span>
+            <span>Create Movie</span>
         </x-form-submit>
     </x-form>
 @endsection

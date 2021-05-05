@@ -10,7 +10,7 @@
         <x-form-input name="price" label="Preis" />
         <x-form-input type="file" name="image" label="Bild" />
         <x-form-submit>
-            <span>Movie speichern</span>
+            <span>Update Movie</span>
         </x-form-submit>
     @endbind
     </x-form>

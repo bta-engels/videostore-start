@@ -1,14 +1,14 @@
 @extends('layouts.default')
-@section('title','Edit Author')
-@section('header','Edit Author')
+@section('title',__('Edit Todo'))
+@section('header',__('Edit Todo'))
 
 @section('content')
-    <x-form :action="route('authors.update', ['author' => $author->id])">
-    @bind($author)
-        <x-form-input name="firstname" label="Vorname" />
-        <x-form-input name="lastname" label="Nachname" />
+    <x-form :action="route('todos.update', ['todo' => $todo->id])">
+    @bind($todo)
+        <x-form-input name="text" label="Beschreibung" />
+        <x-form-checkbox name="done" label="Done?" />
         <x-form-submit>
-            <span>Autor speichern</span>
+            <span>Todo speichern</span>
         </x-form-submit>
     @endbind
     </x-form>

@@ -32,4 +32,22 @@ class Todo extends Model
 {
     use HasFactory;
 
+    protected $appends = ['doneState'];
+
+    protected $fillable = ['text', 'done'];
+
+    public function getDoneStateAttribute()
+    {
+        if($this->done) {
+            return "DONE";
+        } else {
+            return "NOT DONE";
+        }
+    }
+
+    public function __toString()
+    {
+        return $this->text;
+    }
+
 }

@@ -3,8 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Auth;
-use Str;
+use Illuminate\Support\Facades\Auth;
 
 class AuthorRequest extends FormRequest
 {
@@ -27,17 +26,17 @@ class AuthorRequest extends FormRequest
     {
         return [
             'firstname' => 'required|min:3',
-            'lastname' => 'required|min:3',
+            'lastname' => 'required|min:3'
         ];
     }
 
     public function messages()
     {
         return [
-            'firstname.required'    => 'Bitte einen Vornamen angeben',
-            'firstname.min'         => 'Der Vorname muß mindestens :min Zeichen enthalten',
-            'lastname.required'     => 'Bitte einen Nachnamen angeben',
-            'lastname.min'          => 'Der Nachname muß mindestens :min Zeichen enthalten',
+            'firstname.required'    =>  'Bitte Vornamen eingeben!',
+            'firstname.min'         =>  'Der Vorname benötigt wenigstens :min Zeichen!',
+            'lastname.required'     =>  'Bitte Nachnamen eingeben!',
+            'lastname.min'          =>  'Der Nachname benötigt wenigstens :min Zeichen!'
         ];
     }
 }

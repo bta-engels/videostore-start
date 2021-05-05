@@ -11,8 +11,11 @@ use Illuminate\Support\Facades\Cache;
 
 class AuthorController extends Controller
 {
-    private $keyAuthorOptions;
 
+    private $keyAuthorOptions;
+    /**
+     * AuthorController constructor.
+     */
     public function __construct()
     {
         $this->keyAuthorOptions = config('cache.key_authors_options');
@@ -27,8 +30,7 @@ class AuthorController extends Controller
     public function index()
     {
         $data = Author::paginate(10);
-        //oder auth()->check()
-        if(Auth::check()) {
+        if(Auth::check()) { //auth()->check()
             return view('admin.authors.index', compact('data'));
         } else {
             return view('public.authors.index', compact('data'));
@@ -64,16 +66,26 @@ class AuthorController extends Controller
      */
     public function store(AuthorRequest $request)
     {
-/*
-        $author = new Author();
-        $author->firstname  = $request->post('firstname');
-        $author->lastname   = $request->post('lastname');
-        $author->save();
-*/
+
         Author::create($request->validated());
         Cache::delete($this->keyAuthorOptions);
-
+        /*
+            $data = $request->except('_token');
+            Author::create($data);
+        */
+        /*
+            $data = $request->except('_token');
+            $author = new Author();
+            $author->insert($data);
+        */
+        /*
+            $author = new Author();
+            $author->firstname = $request->post('firstname');
+            $author->lastname = $request->post('lastname');
+            $author->save();
+        */
         return redirect('authors');
+
     }
 
     /**
@@ -96,14 +108,17 @@ class AuthorController extends Controller
      */
     public function update(AuthorRequest $request, Author $author)
     {
-/*
-        $author->firstname  = $request->post('firstname');
-        $author->lastname   = $request->post('lastname');
-        $author->save();
-*/
         $author->update($request->validated());
         Cache::delete($this->keyAuthorOptions);
-
+        /*
+        $data = $request->except('_token');
+        $author->update($data);
+        */
+        /*
+        $author->firstname = $request->post('firstname');
+        $author->lastname = $request->post('lastname');
+        $author->save();
+        */
         return redirect('authors');
     }
 
@@ -117,7 +132,6 @@ class AuthorController extends Controller
     {
         $author->delete();
         Cache::delete($this->keyAuthorOptions);
-
         return redirect('authors');
     }
 }

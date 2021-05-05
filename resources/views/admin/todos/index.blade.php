@@ -1,12 +1,12 @@
 @extends('layouts.default')
 
-@section('title', __('Todos'))
-@section('header', __('Todos'))
+@section('title',__('Todos'))
+@section('header',__('Todos'))
 
 @section('content')
     <div class="m-0">
-        <a role="button" class="btn btn-primary" href="{{ route('authors.create') }}">
-            <i class="fas fa-plus-square"></i>Create new Author</a>
+        <a role="button" class="btn btn-primary" href="{{ route('todos.create') }}">
+            <i class="fas fa-plus-square"></i>{{__('Create new Todo')}}</a>
     </div>
     <div class="mt-3">
 
@@ -14,22 +14,25 @@
 
         <table class="table table-striped">
             <tr>
-                <th>{{ __('ID') }}</th>
-                <th>{{ __('done') }}</th>
-                <th>{{ __('Text') }}</th>
-                <th>{{ __('created_at') }}</th>
-                <th>{{ __('updated_at') }}</th>
+                <th>ID</th>
+                <th>{{__('Done')}}</th>
+                <th>{{__('Text')}}</th>
                 <th><br></th>
             </tr>
             @foreach($data as $item)
                 <tr>
-                    <td>{{ $item->id }}</td>
-                    <td><i class="fas fa-{{ $item->done ? 'check' : 'times' }}"></i></td>
-                    <td><a href="{{ route('todos.show', ['todo' => $item->id]) }}">
-                            {{ $item->text }}</a>
+                    <td>
+                        <a href="{{ route('todos.show', ['todo' => $item->id]) }}">
+                            {{ $item->id }}
+                        </a>
                     </td>
-                    <td>{{ $item->created_at->format('d.m.Y H:i') }}</td>
-                    <td>{{ $item->updated_at }}</td>
+
+                    <td>
+                        {{ $item->doneState }}
+                    </td>
+                    <td>
+                        {{ $item->text  }}
+                    </td>
                     <td class="float-right">
                         <a role="button" class="btn-sm btn-primary"
                            href="{{ route('todos.edit', ['todo' => $item->id]) }}"><i class="fas fa-edit"></i>Edit</a>

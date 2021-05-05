@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todo;
-use App\Http\Requests\TodoRequest;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use Auth;
+use App\Http\Requests\TodoRequest as Request;
 
 class TodoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $data = Todo::paginate(10);
-        if(Auth::check()) {
+        $data = Todo::orderBy("created_at", 'desc')->paginate(10);
+        if(Auth::check()) { //auth()->check()
             return view('admin.todos.index', compact('data'));
         } else {
             return view('public.todos.index', compact('data'));
@@ -27,8 +27,8 @@ class TodoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Todo $todo
-     * @return Response
+     * @param  \App\Models\Todo  $todo
+     * @return \Illuminate\Http\Response
      */
     public function show(Todo $todo)
     {
@@ -38,7 +38,7 @@ class TodoController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -48,10 +48,10 @@ class TodoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  TodoRequest  $request
-     * @return Response
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(TodoRequest $request)
+    public function store(Request $request)
     {
         Todo::create($request->validated());
         return redirect('todos');
@@ -60,8 +60,8 @@ class TodoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Todo $todo
-     * @return Response
+     * @param  \App\Models\Todo  $todo
+     * @return \Illuminate\Http\Response
      */
     public function edit(Todo $todo)
     {
@@ -71,11 +71,11 @@ class TodoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  TodoRequest  $request
-     * @param Todo $todo
-     * @return Response
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Todo  $todo
+     * @return \Illuminate\Http\Response
      */
-    public function update(TodoRequest $request, Todo $todo)
+    public function update(Request $request, Todo $todo)
     {
         $todo->update($request->validated());
         return redirect('todos');
@@ -84,8 +84,8 @@ class TodoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Todo $todo
-     * @return Response
+     * @param  \App\Models\Todo  $todo
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Todo $todo)
     {

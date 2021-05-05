@@ -32,6 +32,7 @@ killall Finder
 
 <VirtualHost *:80>
   ServerName videostore-start.loc
+  ServerAlias  *.videostore-start.loc
   DocumentRoot "htdocs/videostore-start/public"
   ErrorLog "logs/videostore-start-error_log"
   CustomLog "logs/videostore-start-access_log" common

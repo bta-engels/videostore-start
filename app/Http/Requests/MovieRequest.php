@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Auth;
-use Illuminate\Support\Facades\Storage;
 
 class MovieRequest extends FormRequest
 {
@@ -20,26 +19,21 @@ class MovieRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        $this->merge(['price' => str_replace(',','.', $this->price)]);
+        $this->merge(['price' => str_replace(',', '.', $this->price)]);
     }
 
     public function validated()
     {
         $validated = parent::validated();
-
-        if (request()->hasFile('image')) {
+        if(request()->hasFile('image')) {
             $file = $this->file('image');
-            // @todo: validierung abfragen
             if($file->isValid()) {
                 $hashName = $file->hashName();
-                // @todo: upload und db eintrag
+                // Upload und db Eintrag
                 $file->storeAs('images', $hashName, 'public');
-                // andere variante
-//                Storage::disk('public')->putFileAs('images', $file, $hashName);
                 $validated['image'] = $hashName;
             }
         }
-
         return $validated;
     }
 
@@ -51,20 +45,20 @@ class MovieRequest extends FormRequest
     public function rules()
     {
         return [
-            'author_id'  => 'required',
-            'title'  => 'required',
-            'price'  => 'required',
-            'image'  => 'nullable|image',
+            'author_id'     =>  'required',
+            'title'         =>  'required',
+            'price'         =>  'required',
+            'image'         =>  'nullable|image'
         ];
     }
 
     public function messages()
     {
         return [
-            'author_id.required'    => 'Bitte einen Autor angeben',
-            'title.required'        => 'Bitte einen Titel angeben',
-            'price.required'        => 'Bitte einen Preis angeben',
-            'image.image'           => 'Datei muß eine Bild-Datei sein',
+          'author_id.required'  =>  'Bitte einen Autoren wählen!',
+          'title.required'      =>  'Bitte einen Titel setzen!',
+          'price.required'      =>  'Bitte einen Preis setzen!',
+          'image.image'         =>  'Datei muss eine Bild-Datei sein!'
         ];
     }
 }
