@@ -1,16 +1,16 @@
 {
   "ID": "ID",
   "Sorry, no data available": "К сожалению, данные отсутствуют",
-  "Movie": "фильм",
-  "Movies": "фильмы",
-  "Author": "автор",
+  "Movie": "Фильм",
+  "Movies": "Фильмы",
+  "Author": "Автор",
   "Authors": "Авторы",
-  "Todo": "Todo",
-  "Todos": "Todos",
-  "Firstname": "Vorname",
-  "Lastname": "Nachname",
-  "Title": "титул",
-  "Price": "Preis",
-  "is required": "ist erforderlich",
-  "length must between :min and :max": "muß mindestens :min und darf max. :max lang sein!"
+  "Todo": "Дело",
+  "Todos": "Дела",
+  "Firstname": "Имя",
+  "Lastname": "Фамилия",
+  "Title": "Титул",
+  "Price": "Цена",
+  "is required": "Требуется заполнить",
+  "length must between :min and :max": "Должно быть не менее: мин. и не больше макс .: макс!"
 }
