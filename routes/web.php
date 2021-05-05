@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\TodoController;
 use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\MovieController;
@@ -58,6 +59,26 @@ Route::group([
     Route::get('destroy/{movie}', [MovieController::class, 'destroy'])->name('movies.destroy');
     Route::post('store', [MovieController::class, 'store'])->name('movies.store');
     Route::post('update/{movie}', [MovieController::class, 'update'])->name('movies.update');
+});
+
+$controller = TodoController::class;
+$model      = 'todo';
+$route      = 'todos';
+Route::group([
+    'prefix'    =>  $route,
+], function() use ($controller, $model, $route) {
+    Route::get('', [$controller, 'index'])->name($route);
+    Route::get("{$model}", [$controller, 'show'])->name("$route.show");
+});
+Route::group([
+    'prefix'        => 'todos',
+    'middleware'    => 'auth',
+], function() use ($controller, $model, $route) {
+    Route::get('create', [$controller, 'create'])->name("$route.create");
+    Route::get("edit/{$model}", [$controller, 'edit'])->name("$route.edit");
+    Route::get("destroy/{$model}", [$controller, 'destroy'])->name("$route.destroy");
+    Route::post('store', [$controller, 'store'])->name("$route.store");
+    Route::post("update/{$model}", [$controller, 'update'])->name("$route.update");
 });
 
 // wenn eine route aufgerufen wird, die nicht definiert wurde

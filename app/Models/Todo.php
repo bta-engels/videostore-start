@@ -31,4 +31,5 @@ use Illuminate\Support\Carbon;
 class Todo extends Model
 {
     use HasFactory;
+
 }
