@@ -49,6 +49,7 @@ class Todo extends Model
 
     public function __toString()
     {
+        dd($this->text);
         return $this->text;
     }
 
