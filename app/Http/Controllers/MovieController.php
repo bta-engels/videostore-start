@@ -26,8 +26,23 @@ class MovieController extends Controller
     public function index(Request $request)
     {
         $selectedAuthor = $request->post('selectedAuthor');
-        $data = Movie::paginate(50);
 
+        // todo: if-statement, um abzufragen, ob author ausgewählt wurde,
+        if($selectedAuthor) {
+            // wenn ja, dann nur movies anzeigen, die diesem autor gehören.
+            $data = Movie::whereAuthorId($selectedAuthor)->paginate(50);
+        } else {
+            // ansonsten vollständige liste anzeigen
+            $data = Movie::paginate(50);
+        }
+        /*
+        // oder:
+        $query = Movie::query();
+        if($selectedAuthor) {
+            $query->whereAuthorId($selectedAuthor);
+        }
+        $data = $query->paginate(50);
+        */
         if(Auth::check()) {
             return view('admin.movies.index', compact('data', 'selectedAuthor'));
         } else {

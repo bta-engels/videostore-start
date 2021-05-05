@@ -7,6 +7,7 @@
     <div class="m-0">
         <a role="button" class="btn btn-primary" href="{{ route('movies.create') }}">
             <i class="fas fa-plus-square"></i>Create new Movie</a>
+
         <div class="float-right row mr-3">
             <div class="d-inline">
                 <x-form :action="route('movies')" class="row">
