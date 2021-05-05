@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
-@section('title','Movies')
-@section('header','Movies')
+@section('title',__('Movies'))
+@section('header',__('Movies'))
 
 @section('content')
     <div class="mt-3">
@@ -18,10 +18,10 @@
             <!-- wenn ja, dann tabelle darstellen -->
             <table class="table table-striped">
                 <tr>
-                    <th>ID</th>
-                    <th>Autor</th>
-                    <th>Titel</th>
-                    <th>Preis</th>
+                    <th>{{__('ID')}}</th>
+                    <th>{{__('Author')}}</th>
+                    <th>{{__('Title')}}</th>
+                    <th>{{__('Price')}}</th>
                 </tr>
                 <!-- table data -->
                 @foreach($data as $item)
@@ -36,7 +36,7 @@
             </table>
         @else
             <!-- wenn nicht, dann ausgeben: keine daten vorhanden -->
-            <h3>Keine Daten vorhanden</h3>
+            <h3>{{__('Sorry, no data available')}}</h3>
         @endif
     </div>
 @endsection

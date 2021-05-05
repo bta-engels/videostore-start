@@ -29,7 +29,7 @@
             </table>
         @else
             <!-- wenn nicht, dann ausgeben: keine daten vorhanden -->
-            <h3>Keine Daten vorhanden</h3>
+            <h3>{{__('Sorry, no data available')}}</h3>
         @endif
     </div>
 @endsection

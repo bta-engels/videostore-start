@@ -14,7 +14,7 @@
 
         <table class="table table-striped">
             <tr>
-                <th>ID</th>
+                <th>{{__('ID')}}</th>
                 <th>{{__('Done')}}</th>
                 <th>{{__('Text')}}</th>
                 <th><br></th>
