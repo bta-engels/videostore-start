@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Todo;
 use App\Http\Controllers\Controller;
 use Auth;
-use Illuminate\Http\Request;
-use App\Http\Requests\TodoRequest;
+use App\Http\Requests\TodoRequest as Request;
 
 class TodoController extends Controller
 {
@@ -17,7 +16,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $data = Todo::paginate(10);
+        $data = Todo::orderBy("created_at", 'desc')->paginate(10);
         if(Auth::check()) { //auth()->check()
             return view('admin.todos.index', compact('data'));
         } else {
@@ -52,7 +51,7 @@ class TodoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TodoRequest $request)
+    public function store(Request $request)
     {
         Todo::create($request->validated());
         return redirect('todos');
@@ -76,7 +75,7 @@ class TodoController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function update(TodoRequest $request, Todo $todo)
+    public function update(Request $request, Todo $todo)
     {
         $todo->update($request->validated());
         return redirect('todos');
