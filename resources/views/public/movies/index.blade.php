@@ -4,14 +4,12 @@
 @section('header','Movies')
 
 @section('content')
-    <div class="m-0">
-        <div class="float-right row mr-3">
-            <x-select-author :options="$authorOptions" :author="$selectedAuthor" />
-        </div>
-    </div>
     <div class="mt-3">
-        <!-- hier todos tabellarisch darstellen -->
-        <!-- if abfrage, ob welche vorhanden sind -->
+        <div class="m-0 float-right">
+            <div class="float-right row mr-3">
+                <x-select-author :options="$authorOptions" :author="$selectedAuthor" />
+            </div>
+        </div>
 
         @if( $data->count() > 0 )
 

@@ -2,6 +2,7 @@
 use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\LanguageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +15,7 @@ use App\Http\Controllers\MovieController;
 */
 
 Auth::routes();
+Route::get('lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang.switch');
 
 // startseite
 Route::get('/', function() {

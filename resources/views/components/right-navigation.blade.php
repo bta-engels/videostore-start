@@ -31,5 +31,14 @@
             <a class="nav-link" href="{{ route('routes') }}">Routen</a>
         </li>
     @endguest
+    <li class="nav-item spacer d-none d-md-inline-block">&nbsp</li>
+
+    <li class="nav-item lang-switch">
+        @foreach (config('languages') as $lang => $language)
+            <a class="nav-link text-uppercase @if($lang === app()->getLocale()) active @endif" href="{{ route('lang.switch', $lang) }}">{{ $lang }}</a>
+            <!--span class="d-inline pipe">|</span-->
+            <span class="nav-link pipe">|</span>
+        @endforeach
+    </li>
 </ul>
 
