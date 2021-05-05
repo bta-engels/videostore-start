@@ -56,8 +56,8 @@ Route::group([
 Route::group([
     'prefix'    =>  'movies'
 ], function() {
-    Route::get('', [MovieController::class, 'index'])
-        ->name('movies');
+    Route::match(['get', 'post'], '', [MovieController::class, 'index'])->name('movies');
+//    Route::get('', [MovieController::class, 'index'])->name('movies');
     Route::get('{movie}', [MovieController::class, 'show'])
         ->name('movies.show');
     //->where('author', '[0-9]+'); // Make sure the id only contains numbers -> Better in RouteServiceProvider!!!

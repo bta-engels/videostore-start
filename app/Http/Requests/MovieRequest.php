@@ -17,6 +17,26 @@ class MovieRequest extends FormRequest
         return Auth::check();
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge(['price' => str_replace(',', '.', $this->price)]);
+    }
+
+    public function validated()
+    {
+        $validated = parent::validated();
+        if(request()->hasFile('image')) {
+            $file = $this->file('image');
+            if($file->isValid()) {
+                $hashName = $file->hashName();
+                // Upload und db Eintrag
+                $file->storeAs('images', $hashName, 'public');
+                $validated['image'] = $hashName;
+            }
+        }
+        return $validated;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -28,7 +48,7 @@ class MovieRequest extends FormRequest
             'author_id'     =>  'required',
             'title'         =>  'required',
             'price'         =>  'required',
-            'image'         =>  ''
+            'image'         =>  'nullable|image'
         ];
     }
 
@@ -37,7 +57,8 @@ class MovieRequest extends FormRequest
         return [
           'author_id.required'  =>  'Bitte einen Autoren wählen!',
           'title.required'      =>  'Bitte einen Titel setzen!',
-          'price.required'      =>  'Bitte einen Preis setzen!'
+          'price.required'      =>  'Bitte einen Preis setzen!',
+          'image.image'         =>  'Datei muss eine Bild-Datei sein!'
         ];
     }
 }

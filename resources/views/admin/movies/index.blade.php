@@ -4,9 +4,22 @@
 @section('header','Movies')
 
 @section('content')
-    <div class="m-0">
-        <a role="button" class="btn btn-primary" href="{{ route('movies.create') }}">
-            <i class="fas fa-plus-square"></i>Create new Movie</a>
+    <div class="d-flex p-0 justify-content-between">
+        <div class="m-0">
+            <a role="button" class="btn btn-primary" href="{{ route('movies.create') }}">
+                <i class="fas fa-plus-square"></i>Create new Movie</a>
+        </div>
+
+
+        <x-form :action="route('movies')">
+            <div class="d-flex justify-content-md-end align-items-center">
+                <x-form-select name="selectedAuthor" :options="$authorOptions" />
+                <x-form-submit>
+                    <span>Update Movie</span>
+                </x-form-submit>
+            </div>
+        </x-form>
+
     </div>
     <div class="mt-3">
 

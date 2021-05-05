@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Author;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\View;
@@ -33,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
         View::share('globalName', 'global gesetzter Wert');
         View::share('currentTimestamp', Carbon::now()->timestamp);
+        View::share('authorOptions', Author::options());
 /*
  * set https protocol, if environment is not local
         if(!$this->app->environment('local')) {

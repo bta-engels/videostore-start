@@ -12,14 +12,6 @@ use Auth;
 class MovieController extends Controller
 {
 
-    private $authors;
-
-    public function __construct() {
-        $this->authors = Author::all()
-            ->keyBy('id')
-            ->map->name;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -53,8 +45,7 @@ class MovieController extends Controller
      */
     public function create()
     {
-        $authors = $this->authors;
-        return view('admin.movies.create', compact('authors'));
+        return view('admin.movies.create');
     }
 
     /**
@@ -77,8 +68,7 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        $authors = $this->authors;
-        return view('admin.movies.edit', compact('movie', 'authors'));
+        return view('admin.movies.edit', compact('movie'));
     }
 
     /**

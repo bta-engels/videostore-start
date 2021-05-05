@@ -4,6 +4,7 @@
 @section('header','Movies')
 
 @section('content')
+
     <div>
         <!-- hier todos tabellarisch darstellen -->
         <!-- if abfrage, ob welche vorhanden sind -->

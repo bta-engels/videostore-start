@@ -17,6 +17,8 @@ return [
     |            "memcached", "redis", "dynamodb"
     |
     */
+    // muss installiert werden
+//    'default' => env('CACHE_DRIVER', 'memcached'),
 
     'default' => env('CACHE_DRIVER', 'file'),
 
@@ -100,5 +102,7 @@ return [
     */
 
     'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_cache'),
+
+    'key_authors_options' => 'authors_options',
 
 ];

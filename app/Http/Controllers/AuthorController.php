@@ -7,10 +7,22 @@ use App\Models\Author;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 
 class AuthorController extends Controller
 {
+
+    private $keyAuthorOptions;
+    /**
+     * AuthorController constructor.
+     */
+    public function __construct()
+    {
+        $this->keyAuthorOptions = config('cache.key_authors_options');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -57,6 +69,7 @@ class AuthorController extends Controller
     {
 
         Author::create($request->validated());
+        Cache::delete($this->keyAuthorOptions);
         /*
             $data = $request->except('_token');
             Author::create($data);
@@ -96,6 +109,7 @@ class AuthorController extends Controller
     public function update(AuthorRequest $request, Author $author)
     {
         $author->update($request->validated());
+        Cache::delete($this->keyAuthorOptions);
         /*
         $data = $request->except('_token');
         $author->update($data);
@@ -117,6 +131,7 @@ class AuthorController extends Controller
     public function destroy(Author $author)
     {
         $author->delete();
+        Cache::delete($this->keyAuthorOptions);
         return redirect('authors');
     }
 }
