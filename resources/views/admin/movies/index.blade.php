@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
-@section('title','Movies')
-@section('header','Movies')
+@section('title',__('Movies'))
+@section('header',__('Movies'))
 
 @section('content')
     <div class="m-0">
@@ -18,10 +18,10 @@
 
         <table class="table table-striped">
             <tr>
-                <th>ID</th>
-                <th>Autor</th>
-                <th>Titel</th>
-                <th>Preis</th>
+                <th>{{__('ID')}}</th>
+                <th>{{__('Author')}}</th>
+                <th>{{__('Title')}}</th>
+                <th>{{__('Price')}}</th>
                 <th><br></th>
             </tr>
             @foreach($data as $item)
