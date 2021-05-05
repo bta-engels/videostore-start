@@ -85,24 +85,24 @@ Route::group([
 
 // Todo routes
 $controller = TodoController::class;
-$model      = 'todo';
+$model      = '{todo}';
 $route      = 'todos';
 
 Route::group([
     'prefix'    =>  $route,
 ], function() use ($controller, $model, $route) {
     Route::get('', [$controller, 'index'])->name($route);
-    Route::get("{$model}", [$controller, 'show'])->name("$route.show");
+    Route::get($model, [$controller, 'show'])->name("$route.show");
 });
 Route::group([
     'prefix'        => $route,
     'middleware'    => 'auth',
 ], function() use ($controller, $model, $route) {
     Route::get('create', [$controller, 'create'])->name("$route.create");
-    Route::get("edit/{$model}", [$controller, 'edit'])->name("$route.edit");
-    Route::get("destroy/{$model}", [$controller, 'destroy'])->name("$route.destroy");
+    Route::get("edit/$model", [$controller, 'edit'])->name("$route.edit");
+    Route::get("destroy/$model", [$controller, 'destroy'])->name("$route.destroy");
     Route::post('store', [$controller, 'store'])->name("$route.store");
-    Route::post("update/{$model}", [$controller, 'update'])->name("$route.update");
+    Route::post("update/$model", [$controller, 'update'])->name("$route.update");
 });
 
 // wenn eine route aufgerufen wird, die nicht definiert wurde
