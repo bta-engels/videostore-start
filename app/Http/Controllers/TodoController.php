@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Language;
 use App\Models\Todo;
+use App\Models\TodoLang;
 use Auth;
 use App\Http\Requests\TodoRequest as Request;
 use Illuminate\Http\Response;
@@ -53,7 +55,7 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        Todo::create($request->validated());
+        $todo = Todo::create($request->validated());
         return redirect('todos');
     }
 
@@ -65,6 +67,7 @@ class TodoController extends Controller
      */
     public function edit(Todo $todo)
     {
+        $todo->text = $todo->lang;
         return view('admin.todos.edit', compact('todo'));
     }
 

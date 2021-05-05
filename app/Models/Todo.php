@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
 
 /**
  * App\Models\Todo
@@ -27,14 +28,40 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Todo whereText($value)
  * @method static Builder|Todo whereUpdatedAt($value)
  * @mixin Eloquent
+ * @property-read mixed $done_icon
+ * @property-read mixed $done_state
  */
 class Todo extends Model
 {
     use HasFactory;
-
-    protected $appends = ['doneState','doneIcon'];
-
+    protected $appends = ['doneState','doneIcon','lang'];
     protected $fillable = ['text', 'done'];
+
+    public static function booted()
+    {
+        static::created(function (Todo $model) {
+            Language::all()->map(function (Language $language) use ($model) {
+                TodoLang::create([
+                    'text'          => $model->text,
+                    'todo_id'       => $model->id,
+                    'language_id'   => $language->id,
+                ]);
+            });
+        });
+        static::updated(function (Todo $model) {
+            $lang = Language::whereCode(App::getLocale())->first();
+            $where = [
+                'todo_id'      => $model->id,
+                'language_id'  => $lang->id,
+            ];
+            TodoLang::where($where)
+                ->update([
+                    'text'          => $model->text,
+                    'todo_id'       => $model->id,
+                    'language_id'   => $lang->id,
+                ]);
+        });
+    }
 
     public function getDoneStateAttribute()
     {
@@ -43,6 +70,19 @@ class Todo extends Model
         } else {
             return "NOT DONE";
         }
+    }
+
+    public function langs()
+    {
+        return $this->hasMany(TodoLang::class);
+    }
+
+    public function getLangAttribute() {
+        $lang = Language::whereCode(App::getLocale())->first();
+        return $this->langs()
+            ->where('language_id', $lang->id)
+            ->first()
+        ;
     }
 
     public function getDoneIconAttribute()
