@@ -39,7 +39,7 @@
             </table>
         @else
             <!-- wenn nicht, dann ausgeben: keine daten vorhanden -->
-            <h3>{{__('no_data_available')}}</h3>
+            <h3>{{__('Sorry, no data available')}}</h3>
         @endif
     </div>
 @endsection

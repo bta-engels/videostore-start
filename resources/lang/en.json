@@ -1,0 +1,16 @@
+{
+  "ID": "ID",
+  "Sorry, no data available": "Sorry, no data available",
+  "Movie": "Movie",
+  "Movies": "Movies",
+  "Author": "Author",
+  "Authors": "Authors",
+  "Todo": "Todo",
+  "Todos": "Todos",
+  "Firstname": "Firstname",
+  "Lastname": "Firstname",
+  "Title": "Title",
+  "Price": "Price",
+  "is required": "is required",
+  "length must between :min and :max": "length must between :min and :max!"
+}

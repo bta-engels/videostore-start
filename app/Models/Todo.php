@@ -32,13 +32,19 @@ class Todo extends Model
 {
     use HasFactory;
 
-    protected $appends = ['doneState'];
+    protected $appends = ['doneState','doneIcon'];
 
     protected $fillable = ['text', 'done'];
 
     public function getDoneStateAttribute()
     {
         return '<i class="fas fa-'. ($this->done ? 'check' : 'times') . ' "></i>';
+    }
+
+    public function getDoneIconAttribute()
+    {
+        $css = $this->done ? 'check' : 'times';
+        return "<i class=\"fas fa-$css\"></i>";
     }
 
     public function __toString()
