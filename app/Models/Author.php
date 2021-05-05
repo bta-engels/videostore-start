@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Cache;
  * @mixin Eloquent
  * @method static Builder|Author options()
  */
+
 class Author extends Model
 {
     use HasFactory;
@@ -35,6 +36,21 @@ class Author extends Model
     protected $appends = ['name'];
     public $timestamps = false;
     protected $fillable = ['firstname', 'lastname'];
+
+    public function scopeOptions(Builder $query)
+    {
+        $key = config('cache.key_authors_options');
+        // wenn cache nicht vorhanden für
+        if(!Cache::has($key)) {
+            $authors = $query->get()
+                ->keyBy('id')
+                ->map->name;
+            $authors->prepend('Bitte wählen', null);
+            Cache::put($key, $authors, 7200);
+        }
+
+        return Cache::get($key);
+    }
 
     public function getNameAttribute()
     {

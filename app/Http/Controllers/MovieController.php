@@ -11,6 +11,12 @@ use Auth;
 
 class MovieController extends Controller
 {
+    private $authors;
+
+    public function __construct()
+    {
+        $this->authors = Author::options();
+    }
 
     /**
      * Display a listing of the resource.
@@ -19,11 +25,12 @@ class MovieController extends Controller
      */
     public function index()
     {
+        $selectedAuthor = $request->post('selectedAuthor');
         $data = Movie::paginate(50);
         if(Auth::check()) {
-            return view('admin.movies.index', compact('data'));
+            return view('admin.movies.index', compact('data', 'selectedAuthor'));
         } else {
-            return view('public.movies.index', compact('data'));
+            return view('public.movies.index', compact('data', 'selectedAuthor'));
         }
     }
 

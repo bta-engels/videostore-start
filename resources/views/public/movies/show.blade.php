@@ -15,6 +15,6 @@
             <img src="/storage/images/{{$movie->image}}" alt="{{$movie->image}}">
         @endif
 
-        
+
     </div>
 @endsection

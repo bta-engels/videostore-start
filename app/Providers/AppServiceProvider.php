@@ -33,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
         View::share('globalName', 'global gesetzter Wert');
+        View::share('authorOptions', Author::options());
         View::share('currentTimestamp', Carbon::now()->timestamp);
         View::share('authorOptions', Author::options());
 /*

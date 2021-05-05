@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\View;
 
 class AuthorController extends Controller
 {
@@ -86,6 +85,7 @@ class AuthorController extends Controller
             $author->save();
         */
         return redirect('authors');
+
     }
 
     /**

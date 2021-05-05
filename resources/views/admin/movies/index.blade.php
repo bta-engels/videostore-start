@@ -4,22 +4,19 @@
 @section('header','Movies')
 
 @section('content')
-    <div class="d-flex p-0 justify-content-between">
-        <div class="m-0">
-            <a role="button" class="btn btn-primary" href="{{ route('movies.create') }}">
-                <i class="fas fa-plus-square"></i>Create new Movie</a>
-        </div>
-
-
-        <x-form :action="route('movies')">
-            <div class="d-flex justify-content-md-end align-items-center">
-                <x-form-select name="selectedAuthor" :options="$authorOptions" />
-                <x-form-submit>
-                    <span>Update Movie</span>
-                </x-form-submit>
+    <div class="m-0">
+        <a role="button" class="btn btn-primary" href="{{ route('movies.create') }}">
+            <i class="fas fa-plus-square"></i>Create new Movie</a>
+        <div class="float-right row mr-3">
+            <div class="d-inline">
+                <x-form :action="route('movies')" class="row">
+                    <x-form-select class="col-auto" name="selectedAuthor" :options="$authorOptions" :default="$selectedAuthor" />
+                    <x-form-submit class="col-auto btn btn-sm btn-primary p-2 ml-1 h-100">
+                        <span>OK</span>
+                    </x-form-submit>
+                </x-form>
             </div>
-        </x-form>
-
+        </div>
     </div>
     <div class="mt-3">
 
