@@ -32,3 +32,48 @@ table {
         }
     }
 }
+.navbar {
+    &.navbar-expand-md {
+        .navbar-nav {
+            &.right {
+                position: absolute;
+                right: 1.0rem;
+            }
+            .nav-item {
+                &.spacer {
+                    width: 0.8rem;
+                }
+                &.lang-switch {
+                    margin-left: 0;
+                    margin-right: 0;
+                    padding-left: 0;
+                    padding-right: 0;
+
+                    .nav-link {
+                        display: inline-block;
+                        clear: none;
+                        margin-left: 0;
+                        margin-right: 0;
+                        padding-left: 0;
+                        padding-right: 0;
+                        &.active {
+                            font-weight: bold;
+                        }
+                        &.pipe {
+                            text-align: center;
+                            margin-left: 0.2rem;
+                            margin-right: 0.2rem;
+                            padding-left: 0;
+                            padding-right: 0;
+                        }
+                    }
+                    .nav-link:last-child {
+                        &.pipe {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

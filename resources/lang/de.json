@@ -1,0 +1,12 @@
+{
+  "Category": "Kategorie",
+  "Sorry, no data available": "Leider keine Daten vorhanden",
+  "Movies": "Filme",
+  "Authors": "Autoren",
+  "Add to shopping cart": "in den Warenkorb",
+  "Firstname": "Vorname",
+  "Lastname": "Nachname",
+  "is required": "ist erforderlich",
+  "length must between :min and :max": "muß mindestens :min und darf max. :max lang sein!",
+  "shopping cart": "Warenkorb"
+}
