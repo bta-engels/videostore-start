@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\TodoResource;
 use App\Models\Todo;
 use Exception;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
+//use App\Http\Requests\TodoRequest as Request;
+use App\Http\Requests\Api\ApiTodoRequest as Request;
 use Illuminate\Http\Response;
 
 class ApiTodoController extends ApiController
@@ -17,7 +20,7 @@ class ApiTodoController extends ApiController
     public function index()
     {
         try {
-            $this->data = Todo::all();
+            $this->data = TodoResource::collection(Todo::all());
         } catch (Exception $e) {
             $this->error = $e->getMessage();
         }
@@ -38,6 +41,8 @@ class ApiTodoController extends ApiController
             $this->data = $todo;
             if(!$todo) {
                 $this->error = __('Sorry, no data available');
+            } else {
+                $this->data = new TodoResource($todo);
             }
         } catch (Exception $e) {
             $this->error = $e->getMessage();
@@ -54,7 +59,16 @@ class ApiTodoController extends ApiController
      */
     public function store(Request $request)
     {
-        //
+        try {
+            if($request->errors) {
+                $this->error = $request->errors;
+            } else {
+                $this->data = new TodoResource(Todo::create($request->validated()));
+            }
+        } catch (Exception $e) {
+            $this->error = $e->getMessage();
+        }
+        return $this->getResponse();
     }
 
     /**
@@ -66,7 +80,19 @@ class ApiTodoController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        //
+
+        try {
+            if($request->errors) {
+                $this->error = $request->errors;
+            } else {
+                $todo = Todo::find($id);
+                $this->data = $todo->update($request->validated());
+            }
+        } catch (Exception $e) {
+            $this->error = $e->getMessage();
+        }
+        return $this->getResponse();
+
     }
 
     /**
@@ -77,6 +103,11 @@ class ApiTodoController extends ApiController
      */
     public function destroy($id)
     {
-        //
+        try {
+            $this->data = Todo::destroy($id);
+        } catch (Exception $e) {
+            $this->error = $e->getMessage();
+        }
+        return $this->getResponse();
     }
 }
