@@ -6,6 +6,7 @@ use App\Models\Todo;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Resources\TodoResource;
 
 class ApiTodoController extends ApiController
 {
@@ -17,7 +18,7 @@ class ApiTodoController extends ApiController
     public function index()
     {
         try {
-            $this->data = Todo::all();
+            $this->data = TodoResource::collection(Todo::all());
         } catch (Exception $e) {
             $this->error = $e->getMessage();
         }
@@ -35,9 +36,11 @@ class ApiTodoController extends ApiController
     {
         try {
             $todo = Todo::find($id);
-            $this->data = $todo;
             if(!$todo) {
                 $this->error = __('Sorry, no data available');
+            }
+            else {
+                $this->data = new TodoResource($todo);
             }
         } catch (Exception $e) {
             $this->error = $e->getMessage();
