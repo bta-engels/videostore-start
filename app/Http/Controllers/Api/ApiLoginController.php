@@ -30,7 +30,8 @@ class ApiLoginController extends Controller
             ]);
         }
         // generiere Auth Token
-        $token = $user->createToken($user->email . '-' .uniqid())->plainTextToken;
+        $tokenName = $user->email . '-' . uniqid();
+        $token = $user->createToken($tokenName, ['todo-write'])->plainTextToken;
         // json rückgabe: name, email, token
         $response = [
             'name'  => $user->name,
