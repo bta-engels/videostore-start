@@ -2,10 +2,9 @@
 namespace App\Models;
 
 use Eloquent;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Facades\App;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * App\Models\TodoLang
@@ -15,23 +14,18 @@ use Illuminate\Support\Facades\App;
  * @property string $text
  * @property-read Collection|Language[] $languages
  * @property-read int|null $languages_count
- * @method static \Illuminate\Database\Eloquent\Builder|TodoLang newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|TodoLang newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|TodoLang query()
- * @method static \Illuminate\Database\Eloquent\Builder|TodoLang whereLanguageId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|TodoLang whereText($value)
- * @method static \Illuminate\Database\Eloquent\Builder|TodoLang whereTodoId($value)
+ * @method static Builder|TodoLang newModelQuery()
+ * @method static Builder|TodoLang newQuery()
+ * @method static Builder|TodoLang query()
+ * @method static Builder|TodoLang whereLanguageId($value)
+ * @method static Builder|TodoLang whereText($value)
+ * @method static Builder|TodoLang whereTodoId($value)
  * @mixin Eloquent
- * @method static \Illuminate\Database\Eloquent\Builder|TodoLang current()
+ * @method static Builder|TodoLang current()
  */
 class TodoLang extends Model
 {
     protected $table = 'todos_lang';
     protected $fillable = ['language_id', 'todo_id', 'text'];
     public $timestamps = false;
-
-    public function __toString()
-    {
-        return $this->text;
-    }
 }

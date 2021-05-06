@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\I18n\ITranslatable;
+use App\I18n\Translatable;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,54 +34,14 @@ use Illuminate\Support\Facades\App;
  * @method static Builder|Movie whereUpdatedAt($value)
  * @mixin Eloquent
  */
-class Movie extends Model
+class Movie extends Model implements ITranslatable
 {
-    use HasFactory;
+    use Translatable;
+
     private static $_lang;
     protected $fillable = ['author_id', 'title', 'price', 'image'];
     protected $appends = ['lang'];
-
-    public static function boot()
-    {
-        parent::boot();
-        static::$_lang = Language::whereCode(App::getLocale())->first();
-    }
-
-    public static function booted()
-    {
-        static::created(function (Movie $model) {
-            Language::all()->map(function (Language $language) use ($model) {
-                MovieLang::create([
-                    'title'         => $model->title,
-                    'movie_id'      => $model->id,
-                    'language_id'   => $language->id,
-                ]);
-            });
-        });
-        static::updated(function (Movie $model) {
-            $where = [
-                'movie_id'      => $model->id,
-                'language_id'   => static::$_lang->id,
-            ];
-
-            MovieLang::updateOrInsert($where, [
-                'title'         => $model->title,
-                'movie_id'      => $model->id,
-                'language_id'   => static::$_lang->id,
-            ]);
-        });
-    }
-
-    public function langs()
-    {
-        return $this->hasMany(MovieLang::class);
-    }
-
-    public function getLangAttribute() {
-        return $this->langs()
-            ->whereLanguageId(static::$_lang->id)
-            ->first() ?? $this;
-    }
+    protected $with = ['translations'];
 
     public function withAuthor($id) {
         return self::where("id", $id);
@@ -90,8 +52,20 @@ class Movie extends Model
         return $this->belongsTo(Author::class);
     }
 
-    public function __toString(): string
+    static function getLangClass()
     {
-        return $this->title;
+        return MovieLang::class;
     }
+
+    static function getTranslatables()
+    {
+        return ['title'];
+    }
+
+    static function getTranslatableForeignKey()
+    {
+        return 'movie_id';
+    }
+
+
 }

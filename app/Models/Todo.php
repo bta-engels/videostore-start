@@ -1,16 +1,14 @@
 <?php
-
 namespace App\Models;
 
-use Database\Factories\TodoFactory;
 use Eloquent;
+use App\I18n\ITranslatable;
+use App\I18n\Translatable;
+use Database\Factories\TodoFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\App;
-use Illuminate\Database\Query\JoinClause;
 
 /**
  * App\Models\Todo
@@ -37,42 +35,13 @@ use Illuminate\Database\Query\JoinClause;
  * @property-read int|null $langs_count
  * @method static Builder|Todo lang()
  */
-class Todo extends Model
+class Todo extends Model implements ITranslatable
 {
-    use HasFactory;
+    use Translatable;
+
     private static $_lang;
     protected $appends = ['doneState','doneIcon','lang'];
     protected $fillable = ['text', 'done'];
-
-    public static function boot()
-    {
-        parent::boot();
-        static::$_lang = Language::whereCode(App::getLocale())->first();
-    }
-
-    public static function booted()
-    {
-        static::created(function (Todo $model) {
-            Language::all()->map(function (Language $language) use ($model) {
-                TodoLang::create([
-                    'text'          => $model->text,
-                    'todo_id'       => $model->id,
-                    'language_id'   => $language->id,
-                ]);
-            });
-        });
-        static::updated(function (Todo $model) {
-            $where = [
-                'todo_id'      => $model->id,
-                'language_id'  => static::$_lang->id,
-            ];
-            TodoLang::updateOrInsert($where, [
-                'text'          => $model->text,
-                'todo_id'       => $model->id,
-                'language_id'   => static::$_lang->id,
-            ]);
-        });
-    }
 
     public function getDoneStateAttribute()
     {
@@ -83,26 +52,24 @@ class Todo extends Model
         }
     }
 
-    public function langs()
-    {
-        return $this->hasMany(TodoLang::class);
-    }
-
-    public function getLangAttribute() {
-        return $this->langs()
-            ->whereLanguageId(static::$_lang->id)
-            ->first() ?? $this;
-    }
-
     public function getDoneIconAttribute()
     {
         $css = $this->done ? 'check' : 'times';
         return "<i class=\"fas fa-$css\"></i>";
     }
 
-    public function __toString()
+    static function getLangClass()
     {
-        return $this->text;
+        return TodoLang::class;
     }
 
+    static function getTranslatables()
+    {
+        return ['text'];
+    }
+
+    static function getTranslatableForeignKey()
+    {
+        return 'todo_id';
+    }
 }

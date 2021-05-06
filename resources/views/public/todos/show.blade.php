@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="align-content-center">
-        <h5>{{ $todo->id }} {{ $todo->lang }}</h5>
+        <h5>{{ $todo->id }} {{ $todo->text }}</h5>
         @if($todo->done)
             <h6>DONE</h6>
         @else
