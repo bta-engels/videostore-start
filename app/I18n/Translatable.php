@@ -76,13 +76,15 @@ trait Translatable
         return parent::__get($attribute);
     }
 
-    public function __call($method, $parameters)
+    public function __call($method, $arguments)
     {
-        $method = 'get' . Str::studly($parameters) . 'Attribute';
-        if($method) {
-
+        foreach(static::$translatables as $attr) {
+            // e.g. "getTitleAttribute"
+            if (method_exists($this, $method) && $method === 'get'. Str::studly($attr).'Attribute') {
+                return $this->{$attr};
+            }
         }
-        return parent::__call($method, $parameters);
+        return parent::__call($method, $arguments);
     }
 /*
     static function getLangClass() {}
