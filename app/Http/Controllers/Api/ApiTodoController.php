@@ -59,10 +59,11 @@ class ApiTodoController extends ApiController
     {
         $post = $request->post();
         try {
-            $this->data = Todo::create($post);
+            $this->data = New TodoResource(Todo::create($post));
         } catch (Exception $e) {
             $this->error = $e->getMessage();
         }
+
         return $this->getResponse();
     }
 
