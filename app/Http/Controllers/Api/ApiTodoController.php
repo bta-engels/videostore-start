@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Todo;
 use Exception;
-use Illuminate\Http\Request;
+use App\Http\Requests\Api\ApiTodoRequest as Request;
 use Illuminate\Http\Response;
 use App\Http\Resources\TodoResource;
 
@@ -57,9 +57,8 @@ class ApiTodoController extends ApiController
      */
     public function store(Request $request)
     {
-        $post = $request->post();
         try {
-            $this->data = New TodoResource(Todo::create($post));
+            $this->data = New TodoResource(Todo::create($request->validated()));
         } catch (Exception $e) {
             $this->error = $e->getMessage();
         }
