@@ -57,7 +57,13 @@ class ApiTodoController extends ApiController
      */
     public function store(Request $request)
     {
-        //
+        $post = $request->post();
+        try {
+            $this->data = Todo::create($post);
+        } catch (Exception $e) {
+            $this->error = $e->getMessage();
+        }
+        return $this->getResponse();
     }
 
     /**
