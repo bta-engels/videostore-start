@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\ApiTodoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+Use App\Http\Controllers\Api\ApiTodoController;
 /*
 |--------------------------------------------------------------------------
 | API Routes

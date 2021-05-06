@@ -2,28 +2,55 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Todo;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ApiTodoController extends ApiController
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
-        $this->data = Todo::all();
+        try {
+            $this->data = Todo::all();
+        } catch (Exception $e) {
+            $this->error = $e->getMessage();
+        }
+
+        return $this->getResponse();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        try {
+            $todo = Todo::find($id);
+            $this->data = $todo;
+            if(!$todo) {
+                $this->error = __('Sorry, no data available');
+            }
+        } catch (Exception $e) {
+            $this->error = $e->getMessage();
+        }
+
         return $this->getResponse();
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -31,23 +58,11 @@ class ApiTodoController extends ApiController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $this->data = Todo::find($id);
-        return $this->getResponse();
-    }
-
-    /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -58,7 +73,7 @@ class ApiTodoController extends ApiController
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
