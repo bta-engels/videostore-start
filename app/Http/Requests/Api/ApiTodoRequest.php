@@ -2,7 +2,6 @@
 namespace App\Http\Requests\Api;
 
 use App\Http\Requests\TodoRequest;
-//use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Validation\Validator;
 
 class ApiTodoRequest extends TodoRequest
@@ -17,5 +16,10 @@ class ApiTodoRequest extends TodoRequest
     public function authorize()
     {
         return true;
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        $this->errors = $validator->errors();
     }
 }

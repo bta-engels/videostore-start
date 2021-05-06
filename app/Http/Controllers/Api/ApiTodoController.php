@@ -58,7 +58,12 @@ class ApiTodoController extends ApiController
     public function store(Request $request)
     {
         try {
-            $this->data = New TodoResource(Todo::create($request->validated()));
+            if($request->errors) {
+                $this->error = $request->errors;
+            } else {
+                $this->data = New TodoResource(Todo::create($request->validated()));
+            }
+
         } catch (Exception $e) {
             $this->error = $e->getMessage();
         }
