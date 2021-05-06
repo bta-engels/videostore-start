@@ -63,7 +63,6 @@ class ApiTodoController extends ApiController
             } else {
                 $this->data = New TodoResource(Todo::create($request->validated()));
             }
-
         } catch (Exception $e) {
             $this->error = $e->getMessage();
         }
@@ -80,7 +79,22 @@ class ApiTodoController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            if($request->errors) {
+                $this->error = $request->errors;
+            } else {
+                // get todo by ID $id
+                $todo = Todo::find($id);
+                if($todo) {
+                    $todo->update($request->validated());
+                    $this->data = new TodoResource($todo->refresh());
+                }
+            }
+        } catch (Exception $e) {
+            $this->error = $e->getMessage();
+        }
+
+        return $this->getResponse();
     }
 
     /**
@@ -91,6 +105,12 @@ class ApiTodoController extends ApiController
      */
     public function destroy($id)
     {
-        //
+        try {
+           $this->data = Todo::destroy($id);
+        } catch (Exception $e) {
+            $this->error = $e->getMessage();
+        }
+
+        return $this->getResponse();
     }
 }
