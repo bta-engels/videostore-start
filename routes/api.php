@@ -1,10 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\ApiTodoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\ApiTodoIdController;
-use App\Http\Controllers\Api\ApiAuthorController;
-use App\Http\Controllers\Api\ApiLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +17,8 @@ use App\Http\Controllers\Api\ApiLoginController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('todos', ApiTodoController::class);
 
 Route::fallback(function () {
     return response()->json(['error' => 'route not found']);

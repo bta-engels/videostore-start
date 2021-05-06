@@ -105,6 +105,8 @@ Route::group([
     Route::post("update/$model", [$controller, 'update'])->name("$route.update");
 });
 
+
+
 // wenn eine route aufgerufen wird, die nicht definiert wurde
 Route::fallback(function() {
     $message = 'Diese Route gibt\'s nicht bei mir!';
