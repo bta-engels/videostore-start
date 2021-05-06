@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Todo;
 use Exception;
-use App\Http\Requests\Api\ApiTodoRequest as Request;
+use App\Models\Todo;
 use Illuminate\Http\Response;
 use App\Http\Resources\TodoResource;
+use App\Http\Requests\Api\ApiTodoRequest as Request;
 
 class ApiTodoController extends ApiController
 {
