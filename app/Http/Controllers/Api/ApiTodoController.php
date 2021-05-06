@@ -57,6 +57,12 @@ class ApiTodoController extends ApiController
      */
     public function store(Request $request)
     {
+        /* wenn spez. token rechte gesetzt sind
+        if(!$request->user()->tokenCan('todo-store')) {
+            $this->error = 'Nicht erlaubt';
+            return $this->getResponse();
+        }
+*/
         try {
             if($request->errors) {
                 $this->error = $request->errors;

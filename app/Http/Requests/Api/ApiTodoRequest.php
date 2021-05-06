@@ -15,7 +15,7 @@ class ApiTodoRequest extends TodoRequest
      */
     public function authorize()
     {
-        return true;
+        return request()->user()->tokenCan('todo-write');
     }
 
     public function failedValidation(Validator $validator)
