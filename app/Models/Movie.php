@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
 
 /**
  * App\Models\Movie
@@ -34,7 +35,51 @@ use Illuminate\Support\Carbon;
 class Movie extends Model
 {
     use HasFactory;
+    private static $_lang;
     protected $fillable = ['author_id', 'title', 'price', 'image'];
+    protected $appends = ['lang'];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::$_lang = Language::whereCode(App::getLocale())->first();
+    }
+
+    public static function booted()
+    {
+        static::created(function (Movie $model) {
+            Language::all()->map(function (Language $language) use ($model) {
+                MovieLang::create([
+                    'title'         => $model->title,
+                    'movie_id'      => $model->id,
+                    'language_id'   => $language->id,
+                ]);
+            });
+        });
+        static::updated(function (Movie $model) {
+            $where = [
+                'movie_id'      => $model->id,
+                'language_id'   => static::$_lang->id,
+            ];
+
+            MovieLang::updateOrInsert($where, [
+                'title'         => $model->title,
+                'movie_id'      => $model->id,
+                'language_id'   => static::$_lang->id,
+            ]);
+        });
+    }
+
+    public function langs()
+    {
+        return $this->hasMany(MovieLang::class);
+    }
+
+    public function getLangAttribute() {
+        return $this->langs()
+            ->whereLanguageId(static::$_lang->id)
+            ->first() ?? $this;
+    }
 
     public function withAuthor($id) {
         return self::where("id", $id);
@@ -43,5 +88,10 @@ class Movie extends Model
     public function author()
     {
         return $this->belongsTo(Author::class);
+    }
+
+    public function __toString(): string
+    {
+        return $this->title;
     }
 }

@@ -66,12 +66,11 @@ class Todo extends Model
                 'todo_id'      => $model->id,
                 'language_id'  => static::$_lang->id,
             ];
-            TodoLang::where($where)
-                ->update([
-                    'text'          => $model->text,
-                    'todo_id'       => $model->id,
-                    'language_id'   => static::$_lang->id,
-                ]);
+            TodoLang::updateOrInsert($where, [
+                'text'          => $model->text,
+                'todo_id'       => $model->id,
+                'language_id'   => static::$_lang->id,
+            ]);
         });
     }
 
@@ -92,8 +91,7 @@ class Todo extends Model
     public function getLangAttribute() {
         return $this->langs()
             ->whereLanguageId(static::$_lang->id)
-            ->first()
-        ;
+            ->first() ?? $this;
     }
 
     public function getDoneIconAttribute()

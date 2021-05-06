@@ -29,7 +29,7 @@
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->author }}</td>
                         <td><a href="{{ route('movies.show', ['movie' => $item->id]) }}">
-                                {{ $item->title }}</a></td>
+                                {{ $item->lang }}</a></td>
                         <td>{{ $item->price }} €</td>
                     </tr>
                 @endforeach
