@@ -7,6 +7,7 @@ use App\Models\Todo;
 use App\Events\OnUpdated;
 use Illuminate\Http\Response;
 use App\Http\Requests\TodoRequest as Request;
+use Illuminate\Support\Facades\Event;
 
 class TodoController extends Controller
 {
@@ -55,8 +56,7 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         $todo = Todo::create($request->validated());
-        event(new OnUpdated($todo));
-
+        Event::dispatch(new OnUpdated($todo));
         return redirect('todos');
     }
 
@@ -81,7 +81,7 @@ class TodoController extends Controller
     public function update(Request $request, Todo $todo)
     {
         $todo->update($request->validated());
-        event(new OnUpdated($todo->refresh()));
+        Event::dispatch(new OnUpdated($todo->refresh()));
 
         return redirect('todos');
     }

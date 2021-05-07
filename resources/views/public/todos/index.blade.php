@@ -32,7 +32,7 @@
                             {!! $item->doneIcon !!}
                         </td>
                         <td>
-                            {{ $item->translation->content->text ?? $item->text }}
+                            {{ $item->text }}
                         </td>
                     </tr>
                 @endforeach

@@ -27,6 +27,7 @@ class StoreTranslation
             'translatable_type'     => get_class($event->model),
         ];
         $data = array_merge($where, ['content' => json_encode($event->model->translatables)]);
+
         $translation = Translation::firstWhere($where) ?? new Translation();
         $translation->fill($data)->save();
     }

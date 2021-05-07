@@ -31,7 +31,7 @@
                         {!! $item->doneIcon !!}
                     </td>
                     <td>
-                        {{ $item->translation->text ?? $item->text }}
+                        {{ $item->text }}
                     </td>
                     <td class="float-right">
                         <a role="button" class="btn-sm btn-primary"
