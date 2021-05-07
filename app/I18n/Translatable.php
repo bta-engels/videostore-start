@@ -19,9 +19,7 @@ trait Translatable {
      */
     public function translations()
     {
-        $relation = $this->morphMany(Translation::class, 'translatable');
-//        dd($relation->dump());
-        return $relation;
+        return $this->morphMany(Translation::class, 'translatable');
     }
 
     /**
