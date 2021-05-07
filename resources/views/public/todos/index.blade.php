@@ -32,7 +32,7 @@
                             {!! $item->doneState !!}
                         </td>
                         <td>
-                            {{ $item->text  }}
+                            {{ $item->current_lang_text() }}
                         </td>
                     </tr>
                 @endforeach

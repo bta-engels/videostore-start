@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App;
+use App\Models\Language;
 use App\Models\Todo;
+use App\Models\TodoLang;
 use Auth;
 use App\Http\Requests\TodoRequest as Request;
 use Illuminate\Http\Response;
@@ -65,6 +68,7 @@ class TodoController extends Controller
      */
     public function edit(Todo $todo)
     {
+        $todo->text = $todo->current_lang_text();
         return view('admin.todos.edit', compact('todo'));
     }
 
@@ -77,7 +81,22 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
+        $lang = App::getLocale();
+        $language = Language::whereCode($lang)->get()->first();
+        $todo_lang = $todo->todo_langs->where('language_id' , $language->id)->first();
+        if($todo_lang) {
+            $todo_lang->update_text($request->validated()['text']);
+        } else {
+            $todo_id = $todo->id;
+            TodoLang::create([
+                'todo_id'       =>  $todo_id,
+                'language_id'   =>  $language->id,
+                'text'          =>  $request->validated()['text']
+            ]);
+        }
+
         $todo->update($request->validated());
+
         return redirect('todos');
     }
 
