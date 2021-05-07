@@ -1,6 +1,7 @@
 <?php
 /**
  * @see: https://pineco.de/simple-eloquent-model-translations/
+ * @see: https://laravel.com/docs/8.x/eloquent-relationships#one-to-many-polymorphic-relations
  */
 namespace App\I18n;
 
