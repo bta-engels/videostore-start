@@ -2,7 +2,7 @@
 /**
  * @see: https://pineco.de/simple-eloquent-model-translations/
  */
-namespace App\I18n;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

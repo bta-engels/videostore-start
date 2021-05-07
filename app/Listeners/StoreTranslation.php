@@ -4,7 +4,7 @@ namespace App\Listeners;
 
 use App;
 use App\Events\OnUpdated;
-use App\I18n\Translation;
+use App\Models\Translation;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -21,12 +21,13 @@ class StoreTranslation
         if(!isset($event->model->translatables)) {
             return null;
         }
-        $data = [
+        $where = [
             'language'              => App::getLocale(),
             'translatable_id'       => $event->model->id,
             'translatable_type'     => get_class($event->model),
-            'content'               => json_encode($event->model->translatables),
         ];
-        Translation::updateOrCreate($data);
+        $data = array_merge($where, ['content' => json_encode($event->model->translatables)]);
+        $translation = Translation::firstWhere($where) ?? new Translation();
+        $translation->fill($data)->save();
     }
 }

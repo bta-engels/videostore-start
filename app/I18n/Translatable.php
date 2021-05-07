@@ -4,11 +4,10 @@
  */
 namespace App\I18n;
 
-use Schema;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\App;
 use stdClass;
-use function MongoDB\BSON\fromJSON;
+use App\Models\Translation;
+use Illuminate\Support\Facades\App;
+use Illuminate\Database\Eloquent\Builder;
 
 trait Translatable {
 
@@ -19,7 +18,9 @@ trait Translatable {
      */
     public function translations()
     {
-        return $this->morphMany(Translation::class, 'translatable');
+        $relation = $this->morphMany(Translation::class, 'translatable');
+//        dd($relation->dump());
+        return $relation;
     }
 
     /**
