@@ -1,4 +1,7 @@
 <?php
+/**
+ * @see: https://pineco.de/simple-eloquent-model-translations/
+ */
 namespace App\I18n;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -13,7 +16,6 @@ class Translation extends Model {
     protected $casts = [
         'content' => 'object',
     ];
-
     /**
      * The attributes that are mass assignable.
      *

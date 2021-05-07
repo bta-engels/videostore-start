@@ -17,16 +17,14 @@ class OnUpdated
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $model;
-    public array $attributes;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($model, array $attributes)
+    public function __construct($model)
     {
         $this->model = $model;
-        $this->attributes = $attributes;
     }
 
     /**

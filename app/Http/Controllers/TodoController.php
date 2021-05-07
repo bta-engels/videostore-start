@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Language;
-use App\Models\Todo;
-use App\Models\TodoLang;
 use Auth;
-use App\Http\Requests\TodoRequest as Request;
+use App\Models\Todo;
+use App\Events\OnUpdated;
 use Illuminate\Http\Response;
+use App\Http\Requests\TodoRequest as Request;
 
 class TodoController extends Controller
 {
@@ -55,7 +54,9 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        Todo::create($request->validated());
+        $todo = Todo::create($request->validated());
+        event(new OnUpdated($todo));
+
         return redirect('todos');
     }
 
@@ -80,6 +81,8 @@ class TodoController extends Controller
     public function update(Request $request, Todo $todo)
     {
         $todo->update($request->validated());
+        event(new OnUpdated($todo->refresh()));
+
         return redirect('todos');
     }
 

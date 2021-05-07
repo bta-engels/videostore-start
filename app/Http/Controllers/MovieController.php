@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OnUpdated;
 use App\Http\Requests\MovieRequest;
 use App\Models\Author;
 use App\Models\Movie;
@@ -78,7 +79,9 @@ class MovieController extends Controller
      */
     public function store(MovieRequest $request)
     {
-        Movie::create($request->validated());
+        $movie = Movie::create($request->validated());
+        event(new OnUpdated($movie));
+
         return redirect('movies');
     }
 
@@ -103,6 +106,8 @@ class MovieController extends Controller
     public function update(MovieRequest $request, Movie $movie)
     {
         $movie->update($request->validated());
+        event(new OnUpdated($movie->refresh()));
+
         return redirect('movies');
     }
 

@@ -37,6 +37,7 @@ class Movie extends Model {
     private static $_lang;
     protected $fillable = ['author_id', 'title', 'price', 'image'];
     protected $appends = ['lang'];
+    protected $translatables = ['title'];
 
     public function withAuthor($id) {
         return self::where("id", $id);
