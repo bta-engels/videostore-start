@@ -39,10 +39,14 @@ class Todo extends Model
     use Translatable;
 
     private static $_lang;
-    protected $appends = ['doneState','doneIcon','lang'];
+    protected $appends = ['doneState','doneIcon'];
     protected $fillable = ['text', 'done'];
     protected $translatables = ['text'];
 
+    public function getTextAttribute($value)
+    {
+        return $this->trans->text ?? $value;
+    }
 
     public function getDoneStateAttribute()
     {
