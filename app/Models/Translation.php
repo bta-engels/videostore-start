@@ -17,6 +17,7 @@ class Translation extends Model {
     protected $casts = [
         'content' => 'object',
     ];
+
     /**
      * The attributes that are mass assignable.
      *

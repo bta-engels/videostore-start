@@ -32,7 +32,7 @@ trait Translatable {
     {
         $data = $this->translations->firstWhere('language', App::getLocale());
         if($data) {
-            return json_decode($data->content);
+            return $data->content;
         }
         return $this;
     }
@@ -41,8 +41,9 @@ trait Translatable {
     {
         if (in_array($attribute, $this->translatables)) {
             $translation = $this->translations->firstWhere('language', App::getLocale());
+//            dump($translation->content);
             if($translation && $translation->content) {
-                $content = json_decode($translation->content);
+                $content = $translation->content;
                 return $content->$attribute;
             }
             return $this->getAttribute($attribute);
