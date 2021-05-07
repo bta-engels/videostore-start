@@ -2,14 +2,11 @@
 
 namespace App\Models;
 
-use App\I18n\ITranslatable;
-use App\I18n\HasTranslatable;
 use Eloquent;
+use App\I18n\Translatable;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\App;
 
 /**
  * App\Models\Movie
@@ -34,14 +31,12 @@ use Illuminate\Support\Facades\App;
  * @method static Builder|Movie whereUpdatedAt($value)
  * @mixin Eloquent
  */
-class Movie extends Model implements ITranslatable
-{
-    use HasTranslatable;
+class Movie extends Model {
+    use Translatable;
 
     private static $_lang;
     protected $fillable = ['author_id', 'title', 'price', 'image'];
     protected $appends = ['lang'];
-    protected $with = ['translations'];
 
     public function withAuthor($id) {
         return self::where("id", $id);
@@ -51,21 +46,4 @@ class Movie extends Model implements ITranslatable
     {
         return $this->belongsTo(Author::class);
     }
-
-    static function getLangClass()
-    {
-        return MovieLang::class;
-    }
-
-    static function getTranslatables()
-    {
-        return ['title'];
-    }
-
-    static function getTranslatableForeignKey()
-    {
-        return 'movie_id';
-    }
-
-
 }

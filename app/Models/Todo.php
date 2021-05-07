@@ -2,8 +2,7 @@
 namespace App\Models;
 
 use Eloquent;
-use App\I18n\ITranslatable;
-use App\I18n\HasTranslatable;
+use App\I18n\Translatable;
 use Database\Factories\TodoFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -35,9 +34,9 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $langs_count
  * @method static Builder|Todo lang()
  */
-class Todo extends Model implements ITranslatable
+class Todo extends Model
 {
-    use HasTranslatable;
+    use Translatable;
 
     private static $_lang;
     protected $appends = ['doneState','doneIcon','lang'];
@@ -56,20 +55,5 @@ class Todo extends Model implements ITranslatable
     {
         $css = $this->done ? 'check' : 'times';
         return "<i class=\"fas fa-$css\"></i>";
-    }
-
-    static function getLangClass()
-    {
-        return TodoLang::class;
-    }
-
-    static function getTranslatables()
-    {
-        return ['text'];
-    }
-
-    static function getTranslatableForeignKey()
-    {
-        return 'todo_id';
     }
 }
