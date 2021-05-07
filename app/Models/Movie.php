@@ -34,7 +34,6 @@ use Illuminate\Support\Carbon;
 class Movie extends Model {
     use Translatable;
 
-    private static $_lang;
     protected $fillable = ['author_id', 'title', 'price', 'image'];
     protected $translatables = ['title'];
 

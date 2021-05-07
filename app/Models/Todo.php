@@ -38,7 +38,6 @@ class Todo extends Model
 {
     use Translatable;
 
-    private static $_lang;
     protected $appends = ['doneState','doneIcon'];
     protected $fillable = ['text', 'done'];
     protected $translatables = ['text'];
