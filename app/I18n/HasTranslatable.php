@@ -6,13 +6,12 @@ use App\Models\Language;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 
-trait Translatable
+trait HasTranslatable
 {
     private static $_lang;
     protected static $langClass;
     protected static $foreignKey;
     protected static $translatables;
-    protected $appends = ['lang'];
 
     public static function boot()
     {
@@ -58,20 +57,23 @@ trait Translatable
         return $this->hasMany(static::getLangClass());
     }
 
-    public function getLangAttribute($attribute)
+    public function getLangAttribute()
     {
         $entity = $this->translations()
                 ->whereLanguageId(static::$_lang->id)
                 ->first() ?? $this;
-        return class_basename($entity).': '.$entity->getAttribute($attribute);
+        return $entity;
     }
 
     public function __get($attribute) {
         if(in_array($attribute, static::$translatables) ) {
+            /**
+             * @var $entity Model
+             */
             $entity = $this->translations()
                 ->whereLanguageId(static::$_lang->id)
                 ->first() ?? $this;
-            return class_basename($entity).': '.$entity->getAttribute($attribute);
+            return $entity->getAttribute($attribute);
         }
         return parent::__get($attribute);
     }
@@ -80,7 +82,7 @@ trait Translatable
     {
         foreach(static::$translatables as $attr) {
             // e.g. "getTitleAttribute"
-            if (method_exists($this, $method) && $method === 'get'. Str::studly($attr).'Attribute') {
+            if ($method === 'get'. Str::studly($attr).'Attribute') {
                 return $this->{$attr};
             }
         }

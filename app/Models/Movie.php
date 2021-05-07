@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\I18n\ITranslatable;
-use App\I18n\Translatable;
+use App\I18n\HasTranslatable;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -36,7 +36,7 @@ use Illuminate\Support\Facades\App;
  */
 class Movie extends Model implements ITranslatable
 {
-    use Translatable;
+    use HasTranslatable;
 
     private static $_lang;
     protected $fillable = ['author_id', 'title', 'price', 'image'];

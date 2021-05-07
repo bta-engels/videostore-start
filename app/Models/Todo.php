@@ -3,7 +3,7 @@ namespace App\Models;
 
 use Eloquent;
 use App\I18n\ITranslatable;
-use App\I18n\Translatable;
+use App\I18n\HasTranslatable;
 use Database\Factories\TodoFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -37,7 +37,7 @@ use Illuminate\Support\Carbon;
  */
 class Todo extends Model implements ITranslatable
 {
-    use Translatable;
+    use HasTranslatable;
 
     private static $_lang;
     protected $appends = ['doneState','doneIcon','lang'];
