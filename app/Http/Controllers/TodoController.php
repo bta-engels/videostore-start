@@ -18,7 +18,10 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $data = Todo::orderBy("created_at", 'desc')->paginate(10);
+        $data = Todo::with('translations')
+            ->orderBy("created_at", 'desc')
+            ->paginate(10)
+        ;
         if(Auth::check()) { //auth()->check()
             return view('admin.todos.index', compact('data'));
         } else {

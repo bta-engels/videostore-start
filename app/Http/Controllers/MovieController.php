@@ -27,20 +27,12 @@ class MovieController extends Controller
     public function index(Request $request)
     {
         $selectedAuthor = $request->post('selectedAuthor');
+        $query = Movie::with(['author','translations']);
 
-        /*
-            if($selectedAuthor) {
-                $data = Movie::whereAuthorId("$selectedAuthor")->paginate(50);
-            } else {
-                $data = Movie::paginate(50);
-            }
-        */
-        //  oder
-
-        $query = Movie::query();
         if($selectedAuthor) {
             $query->whereAuthorId($selectedAuthor);
         }
+
         $data = $query->paginate(50);
 
         if(Auth::check()) {
