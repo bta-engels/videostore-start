@@ -27,9 +27,11 @@ trait Translatable {
         if( !isset($this->translatables) || count($this->translatables) < 1) {
             return $query;
         }
-        $query = $this->prepareSelect($query);
-        $query = $this->prepareQuery($query);
 
+        $this
+            ->setSelect($query)
+            ->setJoin($query)
+        ;
         return $query;
     }
 
@@ -37,7 +39,7 @@ trait Translatable {
      * @param Builder $query
      * @return $this
      */
-    private function prepareSelect(Builder $query)
+    private function setSelect(Builder &$query)
     {
         $table = $query->getModel()->getTable();
         $attributes = collect(Schema::getColumnListing($table))
@@ -55,14 +57,14 @@ trait Translatable {
         $sql = $attributes->implode(',');
         $query->selectRaw($sql);
 
-        return $query;
+        return $this;
     }
 
     /**
      * @param Builder $query
      * @return $this
      */
-    private function prepareQuery(Builder $query)
+    private function setJoin(Builder &$query)
     {
         $table  = $query->getModel()->getTable();
         $query
@@ -73,6 +75,11 @@ trait Translatable {
                 ;
             });
 
-        return $query;
+        return $this;
+    }
+
+    public function getTranslatables()
+    {
+        return ($this->translatables && count($this->translatables) > 0) ? $this->translatables : null;
     }
 }

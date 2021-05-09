@@ -19,9 +19,10 @@ class StoreTranslation
      */
     public function handle(OnUpdated $event)
     {
-        if(!isset($event->model->translatables)) {
+        if(!$event->model->getTranslatables()) {
             return null;
         }
+
         $where = [
             'language'              => App::getLocale(),
             'translatable_id'       => $event->model->id,
