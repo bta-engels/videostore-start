@@ -20,7 +20,6 @@ class CreateTranslationsTable extends Migration
             $table->string('language',2)->index();
             $table->json('content');
             $table->timestamps();
-            $table->primary(['translatable_type', 'translatable_id', 'language']);
         });
     }
 
