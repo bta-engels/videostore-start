@@ -30,21 +30,20 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Movie whereTitle($value)
  * @method static Builder|Movie whereUpdatedAt($value)
  * @mixin Eloquent
+ * @property-read Translation $translatables
+ * @method static Builder|Movie translated()
  */
 class Movie extends Model {
     use Translatable;
 
-    protected $fillable = ['author_id', 'title', 'price', 'image'];
+    protected $fillable = [
+        'author_id',
+        'title',
+        'price',
+        'image'
+    ];
+    protected $appends = ['trans'];
     protected $translatables = ['title'];
-
-    public function getTitleAttribute($value)
-    {
-        return $this->trans->title ?? $value;
-    }
-
-    public function withAuthor($id) {
-        return self::where("id", $id);
-    }
 
     public function author()
     {

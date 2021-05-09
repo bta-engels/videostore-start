@@ -33,19 +33,19 @@ use Illuminate\Support\Carbon;
  * @property-read Collection|TodoLang[] $langs
  * @property-read int|null $langs_count
  * @method static Builder|Todo lang()
+ * @property-read Translation $translatables
+ * @method static Builder|Todo translated()
  */
 class Todo extends Model
 {
     use Translatable;
 
     protected $appends = ['doneState','doneIcon'];
-    protected $fillable = ['text', 'done'];
+    protected $fillable = [
+        'text',
+        'done'
+    ];
     protected $translatables = ['text'];
-
-    public function getTextAttribute($value)
-    {
-        return $this->trans->text ?? $value;
-    }
 
     public function getDoneStateAttribute()
     {

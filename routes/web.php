@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Http\Request;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\AuthorController;
@@ -35,7 +36,11 @@ Route::group([
     Route::get('', [AuthorController::class, 'index'])
         ->name('authors');
     Route::get('{author}', [AuthorController::class, 'show'])
-        ->name('authors.show');
+        ->name('authors.show')
+        ->missing(function (Request $request) {
+            return Redirect::route('authors');
+        })
+    ;
         //->where('author', '[0-9]+'); // Make sure the id only contains numbers -> Better in RouteServiceProvider!!!
 });
 
@@ -62,7 +67,11 @@ Route::group([
     Route::match(['get', 'post'], '', [MovieController::class, 'index'])->name('movies');
 //    Route::get('', [MovieController::class, 'index'])->name('movies');
     Route::get('{movie}', [MovieController::class, 'show'])
-        ->name('movies.show');
+        ->name('movies.show')
+        ->missing(function (Request $request) {
+            return Redirect::route('movies');
+        })
+    ;
     //->where('author', '[0-9]+'); // Make sure the id only contains numbers -> Better in RouteServiceProvider!!!
 });
 

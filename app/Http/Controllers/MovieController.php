@@ -27,16 +27,6 @@ class MovieController extends Controller
     public function index(Request $request)
     {
         $selectedAuthor = $request->post('selectedAuthor');
-
-        /*
-            if($selectedAuthor) {
-                $data = Movie::whereAuthorId("$selectedAuthor")->paginate(50);
-            } else {
-                $data = Movie::paginate(50);
-            }
-        */
-        //  oder
-
         $query = Movie::query();
         if($selectedAuthor) {
             $query->whereAuthorId($selectedAuthor);
@@ -58,6 +48,7 @@ class MovieController extends Controller
      */
     public function show(Movie $movie)
     {
+        $movie = $movie->translated();
         return view('public.movies.show', compact('movie'));
     }
 
@@ -93,6 +84,7 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
+        $movie = $movie->translated()->first();
         return view('admin.movies.edit', compact('movie'));
     }
 
