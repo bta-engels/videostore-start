@@ -33,6 +33,7 @@ use Illuminate\Support\Carbon;
  * @mixin Eloquent
  */
 class Translation extends Model {
+    protected $primaryKey = ['translatable_id','translatable_type','language'];
     /**
      * The attributes that should be casted to native types.
      *

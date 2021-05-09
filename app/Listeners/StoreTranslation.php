@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App;
 use App\Events\OnUpdated;
 use App\Models\Translation;
+use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\InteractsWithQueue;
@@ -31,6 +32,10 @@ class StoreTranslation
         $data = array_merge($where, ['content' => $event->model->translatables]);
 
         $translation = Translation::firstWhere($where) ?? new Translation();
-        $translation->fill($data)->save();
+        try {
+            $translation->fill($data)->save();
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
     }
 }
