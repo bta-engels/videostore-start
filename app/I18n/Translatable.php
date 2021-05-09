@@ -82,4 +82,18 @@ trait Translatable {
     {
         return ($this->translatables && count($this->translatables) > 0) ? $this->translatables : null;
     }
+
+    /**
+     * Get the translation attribute.
+     *
+     * @return Translation
+     */
+    public function getTranslatablesAttribute()
+    {
+        $obj = new stdClass();
+        foreach ($this->translatables as $attr) {
+            $obj->$attr = $this->$attr;
+        }
+        return $obj;
+    }
 }
