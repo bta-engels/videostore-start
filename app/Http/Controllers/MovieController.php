@@ -34,9 +34,10 @@ class MovieController extends Controller
                 $data = Movie::paginate(50);
             }
         */
-        //  oder
-
+        //  oder besser
         $query = Movie::query();
+//        better relation loading
+//        $query = Movie::with('author');
         if($selectedAuthor) {
             $query->whereAuthorId($selectedAuthor);
         }
