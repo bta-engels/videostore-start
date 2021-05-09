@@ -55,7 +55,8 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         Route::bind('todo', function ($id) {
-            return Todo::translated()->find($id);
+            $translated = Todo::translated();
+            return $translated->find($id);
         });
         Route::bind('movie', function ($id) {
             return Movie::translated()->find($id);

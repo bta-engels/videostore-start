@@ -5,35 +5,39 @@
  */
 namespace App\I18n;
 
-use DB;
-use Illuminate\Support\Facades\Schema;
 use stdClass;
-use Illuminate\Support\Str;
 use App\Models\Translation;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;
 
+/**
+ * Trait Translatable
+ * @package App\I18n
+ */
 trait Translatable {
 
+    /**
+     * @param Builder $query
+     * @return Builder|null
+     */
     public function scopeTranslated(Builder $query)
     {
         if( !isset($this->translatables) || count($this->translatables) < 1) {
-            return null;
+            return $query;
         }
-        $this
-            ->prepareSelect($query)
-            ->prepareQuery($query)
-        ;
+        $query = $this->prepareSelect($query);
+        $query = $this->prepareQuery($query);
 
-        if($this->id) {
-            $query->whereId($this->id);
-        }
-        $this->refresh();
         return $query;
     }
 
-    private function prepareSelect(Builder &$query)
+    /**
+     * @param Builder $query
+     * @return $this
+     */
+    private function prepareSelect(Builder $query)
     {
         $table = $query->getModel()->getTable();
         $attributes = collect(Schema::getColumnListing($table))
@@ -44,16 +48,21 @@ trait Translatable {
         ;
         $extra = collect([]);
         foreach ($this->translatables as $field) {
-            $extra->put("{$table}.__{$field}", "IF(translations.content IS NOT NULL, JSON_VALUE(translations.content, '$.{$field}'), {$table}.{$field}) AS __{$field}");
+            $extra->put("{$table}.{$field}", "IF(translations.content IS NOT NULL, JSON_VALUE(translations.content, '$.{$field}'), {$table}.{$field}) AS {$field}");
         }
         $attributes = $attributes->merge($extra);
 
         $sql = $attributes->implode(',');
         $query->selectRaw($sql);
-        return $this;
+
+        return $query;
     }
 
-    private function prepareQuery(Builder &$query)
+    /**
+     * @param Builder $query
+     * @return $this
+     */
+    private function prepareQuery(Builder $query)
     {
         $table  = $query->getModel()->getTable();
         $query
@@ -63,20 +72,7 @@ trait Translatable {
                     ->where('translations.language', '=', App::getLocale())
                 ;
             });
-        return $this;
-    }
 
-    /**
-     * Get the translation attribute.
-     *
-     * @return Translation
-     */
-    public function getTranslatablesAttribute()
-    {
-        $obj = new stdClass();
-        foreach ($this->translatables as $attr) {
-            $obj->$attr = $this->$attr;
-        }
-        return $obj;
+        return $query;
     }
 }
