@@ -7,7 +7,6 @@ use App\Models\Todo;
 use App\Events\OnUpdated;
 use Illuminate\Http\Response;
 use App\Http\Requests\TodoRequest as Request;
-use Illuminate\Support\Facades\Event;
 
 class TodoController extends Controller
 {
