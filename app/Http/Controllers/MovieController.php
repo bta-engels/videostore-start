@@ -27,7 +27,7 @@ class MovieController extends Controller
     public function index(Request $request)
     {
         $selectedAuthor = $request->post('selectedAuthor');
-        $query = Movie::translated();
+        $query = Movie::translated()->with('author');
         if($selectedAuthor) {
             $query->whereAuthorId($selectedAuthor);
         }

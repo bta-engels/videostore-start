@@ -16,11 +16,6 @@ use Illuminate\Database\Query\JoinClause;
 
 trait Translatable {
 
-    public function resolveRouteBinding($value, $field = null)
-    {
-        return $this->scopeTranslated();
-    }
-
     public function scopeTranslated(Builder $query)
     {
         if( !isset($this->translatables) || count($this->translatables) < 1) {
@@ -49,7 +44,7 @@ trait Translatable {
         ;
         $extra = collect([]);
         foreach ($this->translatables as $field) {
-            $extra->put("{$table}.{$field}", "IF(translations.content IS NOT NULL, JSON_VALUE(translations.content, '$.{$field}'), {$table}.{$field}) AS $field");
+            $extra->put("{$table}.__{$field}", "IF(translations.content IS NOT NULL, JSON_VALUE(translations.content, '$.{$field}'), {$table}.{$field}) AS __{$field}");
         }
         $attributes = $attributes->merge($extra);
 

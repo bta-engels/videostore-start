@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title','Movie')
-@section('header', $movie->title)
+@section('header', $movie->__title)
 
 @section('content')
     <div class="align-content-center">
@@ -14,7 +14,5 @@
         @if($movie->image)
             <img src="/storage/images/{{$movie->image}}" alt="{{$movie->image}}">
         @endif
-
-
     </div>
 @endsection
