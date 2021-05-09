@@ -42,7 +42,6 @@ class Movie extends Model {
         'price',
         'image'
     ];
-    protected $appends = ['trans'];
     protected $translatables = ['title'];
 
     public function author()

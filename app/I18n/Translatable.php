@@ -16,25 +16,9 @@ use Illuminate\Database\Query\JoinClause;
 
 trait Translatable {
 
-    /**
-     * Get all of the models's translations.
-     *
-     * @return Builder
-     */
-/*
-    public function translations()
+    public function resolveRouteBinding($value, $field = null)
     {
-        return $this->morphMany(Translation::class, 'translatable');
-    }
-*/
-    public function translations()
-    {
-        return $this->morphMany(Translation::class, 'translatable');
-    }
-
-    public function getTransAttribute()
-    {
-        return $this->translations->where('language', App::getLocale())->first();
+        return $this->scopeTranslated();
     }
 
     public function scopeTranslated(Builder $query)
@@ -86,21 +70,7 @@ trait Translatable {
             });
         return $this;
     }
-/*
-    public function __get($attribute)
-    {
-        if (in_array($attribute, $this->translatables)) {
-            $translation = $this->translations->firstWhere('language', App::getLocale());
-//            dump($translation->content);
-            if($translation && $translation->content) {
-                $content = $translation->content;
-                return $content->$attribute;
-            }
-            return $this->getAttribute($attribute);
-        }
-        return parent::__get($attribute);
-    }
-*/
+
     /**
      * Get the translation attribute.
      *

@@ -30,9 +30,6 @@ use Illuminate\Support\Facades\Cache;
 
 class Author extends Model
 {
-    use HasFactory;
-    // laravel expect table-name as plural from class name
-    //protected $table = 'authors';
     protected $appends = ['name'];
     public $timestamps = false;
     protected $fillable = ['firstname', 'lastname'];

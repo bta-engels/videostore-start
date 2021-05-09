@@ -53,16 +53,4 @@ class Translation extends Model {
         'translatable_id',
         'translatable_type',
     ];
-
-    /**
-     * Get all of the owning translatable models.
-     *
-     * @return Builder
-     */
-/*
-    public function translatable()
-    {
-        return $this->morphTo();
-    }
-*/
 }
