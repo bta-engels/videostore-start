@@ -32,10 +32,6 @@ class StoreTranslation
         $data = array_merge($where, ['content' => $event->model->translatables]);
 
         $translation = Translation::firstWhere($where) ?? new Translation();
-        try {
-            $translation->fill($data)->save();
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
+        $translation->fill($data)->save();
     }
 }
