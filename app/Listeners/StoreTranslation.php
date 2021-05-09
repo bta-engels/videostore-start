@@ -19,7 +19,7 @@ class StoreTranslation
      */
     public function handle(OnUpdated $event)
     {
-        if(!isset($event->model->translatables)) {
+        if(!$event->model->getTranslatables()) {
             return null;
         }
         $where = [

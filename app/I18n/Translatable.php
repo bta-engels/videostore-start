@@ -41,7 +41,6 @@ trait Translatable {
     {
         if (in_array($attribute, $this->translatables)) {
             $translation = $this->translations->firstWhere('language', App::getLocale());
-//            dump($translation->content);
             if($translation && $translation->content) {
                 $content = $translation->content;
                 return $content->$attribute;
@@ -51,17 +50,8 @@ trait Translatable {
         return parent::__get($attribute);
     }
 
-    /**
-     * Get the translation attribute.
-     *
-     * @return Translation
-     */
-    public function getTranslatablesAttribute()
+    public function getTranslatables()
     {
-        $obj = new stdClass();
-        foreach ($this->translatables as $attr) {
-            $obj->$attr = $this->$attr;
-        }
-        return $obj;
+        return ($this->translatables && count($this->translatables) > 0) ? $this->translatables : null;
     }
 }
