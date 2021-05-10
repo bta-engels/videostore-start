@@ -40,20 +40,7 @@ trait Translatable {
         }
         return $this;
     }
-/*
-    public function __get($attribute)
-    {
-        if (in_array($attribute, $this->translatables)) {
-            $translation = $this->translations->firstWhere('language', App::getLocale());
-            if($translation && $translation->content) {
-                $content = $translation->content;
-                return $content->$attribute;
-            }
-            return $this->getAttribute($attribute);
-        }
-        return parent::__get($attribute);
-    }
-*/
+
     /**
      * get availables translations fiedls
      * @return null
@@ -76,4 +63,19 @@ trait Translatable {
         }
         return $obj;
     }
+
+    /*
+        public function __get($attribute)
+        {
+            if (in_array($attribute, $this->translatables)) {
+                $translation = $this->translations->firstWhere('language', App::getLocale());
+                if($translation && $translation->content) {
+                    $content = $translation->content;
+                    return $content->$attribute;
+                }
+                return $this->getAttribute($attribute);
+            }
+            return parent::__get($attribute);
+        }
+    */
 }
