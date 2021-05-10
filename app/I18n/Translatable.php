@@ -55,27 +55,27 @@ trait Translatable {
      *
      * @return Translation
      */
-    public function getTranslatablesAttribute()
+    public function toObject(array $data)
     {
         $obj = new stdClass();
         foreach ($this->translatables as $attr) {
-            $obj->$attr = $this->$attr;
+            if(in_array($attr, array_keys($data))) {
+                $obj->$attr = $data[$attr];
+            }
         }
         return $obj;
     }
 
-    /*
-        public function __get($attribute)
-        {
-            if (in_array($attribute, $this->translatables)) {
-                $translation = $this->translations->firstWhere('language', App::getLocale());
-                if($translation && $translation->content) {
-                    $content = $translation->content;
-                    return $content->$attribute;
-                }
-                return $this->getAttribute($attribute);
+    public function __get($attribute)
+    {
+        if (in_array($attribute, $this->translatables)) {
+            $translation = $this->translations->firstWhere('language', App::getLocale());
+            if($translation && $translation->content) {
+                $content = $translation->content;
+                return $content->$attribute;
             }
-            return parent::__get($attribute);
+            return $this->getAttribute($attribute);
         }
-    */
+        return parent::__get($attribute);
+    }
 }

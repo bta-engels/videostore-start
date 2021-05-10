@@ -17,15 +17,14 @@ class StoreTranslation
     public function handle(OnUpdated $event)
     {
         if(!$event->model->getTranslatables()) {
-            return null;
+            die('nix is');
         }
         $where = [
             'language'              => App::getLocale(),
             'translatable_id'       => $event->model->id,
             'translatable_type'     => get_class($event->model),
         ];
-        $data = array_merge($where, ['content' => $event->model->translatables]);
-
+        $data = array_merge($where, ['content' => $event->model->toObject($event->data)]);
         $translation = Translation::firstWhere($where) ?? new Translation();
         $translation->fill($data)->save();
     }

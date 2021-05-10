@@ -22,6 +22,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         OnUpdated::class => [
             StoreTranslation::class,
+
         ]
     ];
 

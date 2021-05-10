@@ -59,7 +59,8 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         $todo = Todo::create($request->validated());
-        Event::dispatch(new OnUpdated($todo));
+        Event::dispatch(new OnUpdated($todo, $request->validated()));
+
         return redirect('todos');
     }
 
@@ -84,8 +85,8 @@ class TodoController extends Controller
     public function update(Request $request, Todo $todo)
     {
         $todo->update($request->validated());
-        Event::dispatch(new OnUpdated($todo->refresh()));
-
+        Event::dispatch(new OnUpdated($todo->refresh(), $request->validated()));
+//        return view('public.todos.show', compact('todo'));
         return redirect('todos');
     }
 
