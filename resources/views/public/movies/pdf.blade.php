@@ -1,7 +1,6 @@
-@extends('layouts.default')
+@extends('layouts.pure')
 
 @section('title','Movie')
-@section('header', $movie->title)
 
 @section('content')
     <div class="align-content-center">

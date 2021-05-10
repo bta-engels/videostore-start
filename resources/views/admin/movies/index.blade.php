@@ -33,6 +33,8 @@
                     <td>{{ $item->price }} €</td>
                     <td class="float-right">
                         <a role="button" class="btn-sm btn-primary"
+                           href="{{ route('movies.pdf', ['movie' => $item->id]) }}"><i class="fas fa-file-pdf"></i>PDF</a>
+                        <a role="button" class="btn-sm btn-primary"
                            href="{{ route('movies.edit', ['movie' => $item->id]) }}"><i class="fas fa-edit"></i>Edit</a>
                         <a role="button" class="btn-sm btn-danger"
                            onclick="return confirm('Datensatz wirklich löschen?')"
