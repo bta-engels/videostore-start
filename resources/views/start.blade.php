@@ -7,5 +7,6 @@
     <div>
         <p>Das ist meine Startseite</p>
         <p>{{ $globalName }}</p>
+        <p>active Route: {{ $activeRoute }}</p>
     </div>
 @endsection
