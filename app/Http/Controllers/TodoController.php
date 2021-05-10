@@ -22,7 +22,7 @@ class TodoController extends Controller
             ->orderBy("created_at", 'desc')
             ->paginate(10)
         ;
-        if(Auth::check()) { //auth()->check()
+        if(Auth::check()) {
             return view('admin.todos.index', compact('data'));
         } else {
             return view('public.todos.index', compact('data'));

@@ -5,9 +5,6 @@ namespace App\Listeners;
 use App;
 use App\Events\OnUpdated;
 use App\Models\Translation;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Queue\InteractsWithQueue;
 
 class StoreTranslation
 {

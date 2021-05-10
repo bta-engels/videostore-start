@@ -11,6 +11,10 @@ use App\Models\Translation;
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Trait Translatable
+ * @package App\I18n
+ */
 trait Translatable {
 
     /**
@@ -36,7 +40,7 @@ trait Translatable {
         }
         return $this;
     }
-
+/*
     public function __get($attribute)
     {
         if (in_array($attribute, $this->translatables)) {
@@ -49,14 +53,18 @@ trait Translatable {
         }
         return parent::__get($attribute);
     }
-
+*/
+    /**
+     * get availables translations fiedls
+     * @return null
+     */
     public function getTranslatables()
     {
         return ($this->translatables && count($this->translatables) > 0) ? $this->translatables : null;
     }
 
     /**
-     * Get the translation attribute.
+     * Get the translation attribute as object.
      *
      * @return Translation
      */
