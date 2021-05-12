@@ -63,6 +63,8 @@ Route::group([
 //    Route::get('', [MovieController::class, 'index'])->name('movies');
     Route::get('{movie}', [MovieController::class, 'show'])
         ->name('movies.show');
+    Route::get('pdf/{movie}', [MovieController::class, 'pdf'])
+        ->name('movies.pdf');
     //->where('author', '[0-9]+'); // Make sure the id only contains numbers -> Better in RouteServiceProvider!!!
 });
 
@@ -104,6 +106,7 @@ Route::group([
     Route::post('store', [$controller, 'store'])->name("$route.store");
     Route::post("update/$model", [$controller, 'update'])->name("$route.update");
 });
+
 
 // wenn eine route aufgerufen wird, die nicht definiert wurde
 Route::fallback(function() {

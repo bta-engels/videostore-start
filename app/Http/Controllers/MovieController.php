@@ -9,6 +9,7 @@ use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Auth;
+use PDF;
 
 class MovieController extends Controller
 {
@@ -113,5 +114,11 @@ class MovieController extends Controller
     {
         $movie->delete();
         return redirect('movies');
+    }
+
+    public function pdf(Movie $movie)
+    {
+        $pdf = PDF::loadView('public.movies.pdf', compact('movie'));
+        return $pdf->download('movie.pdf');
     }
 }
