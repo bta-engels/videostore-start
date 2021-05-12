@@ -12,7 +12,7 @@
         <h6>geändert am: {{ $movie->updated_at->format('d.m.Y H:i') }} Uhr</h6>
 
         @if($movie->image)
-            <img src="/storage/images/{{$movie->image}}" alt="{{$movie->image}}">
+            <img src="/storage/images/{{$movie->image}}" width="500" alt="{{$movie->image}}">
         @endif
     </div>
 @endsection
