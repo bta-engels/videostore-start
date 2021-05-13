@@ -17,10 +17,10 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $query = Todo::translated()
+        $data = Todo::translated()
             ->orderBy("created_at", 'desc')
+            ->paginate(10)
         ;
-        $data = $query->paginate(10);
         if(Auth::check()) { //auth()->check()
             return view('admin.todos.index', compact('data'));
         } else {
