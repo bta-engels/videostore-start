@@ -74,19 +74,4 @@ trait Translatable {
             });
         return $this;
     }
-/*
-    public function __call($method, $parameters) {
-        $result = parent::__call($method, $parameters);
-        echo "$method<br>";
-        switch ($method) {
-            case 'translated':
-                dump($result->get());
-                break;
-            case 'hydrate':
-                dump($result->first());
-                break;
-        }
-        return $result;
-    }
-*/
 }
