@@ -1,12 +1,12 @@
+@php
+$currentRouteName = Route::currentRouteName();
+$routes = ['authors','movies','todos']
+@endphp
 
 <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('authors') }}">Autoren</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('movies') }}">Filme</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('todos') }}">Todos</a>
-    </li>
+    @foreach($routes as $route)
+        <li class="nav-item @if($route === $currentRouteName) active @endif">
+            <a class="nav-link" href="{{ route($route) }}">{{ ucfirst($route) }}</a>
+        </li>
+    @endforeach
 </ul>

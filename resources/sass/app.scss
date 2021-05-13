@@ -5,6 +5,7 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/css/all.css';
+@import '~include-media/dist/_include-media';
 
 i.fas,i.far {
     display: inline;
@@ -35,11 +36,18 @@ table {
 .navbar {
     &.navbar-expand-md {
         .navbar-nav {
-            &.right {
-                position: absolute;
-                right: 1.0rem;
-            }
             .nav-item {
+                &.active {
+                    a {
+                        color: #c00;
+                        font-weight: bold;
+                        @include media("<tablet") {
+                            color: green;
+                        }
+                    }
+                }
+                .nav-link {
+                }
                 &.spacer {
                     width: 0.8rem;
                 }
@@ -73,6 +81,10 @@ table {
                         }
                     }
                 }
+            }
+            &.right {
+                position: absolute;
+                right: 1.0rem;
             }
         }
     }
