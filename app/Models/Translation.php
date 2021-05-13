@@ -1,8 +1,4 @@
 <?php
-/**
- * @see: https://pineco.de/simple-eloquent-model-translations/
- * @see: https://laravel.com/docs/8.x/eloquent-relationships#one-to-many-polymorphic-relations
- */
 namespace App\Models;
 
 use Eloquent;
@@ -31,6 +27,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Translation whereTranslatableType($value)
  * @method static Builder|Translation whereUpdatedAt($value)
  * @mixin Eloquent
+ * @property-read Model|Eloquent $translatable
  */
 class Translation extends Model {
     /**

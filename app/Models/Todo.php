@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 
+use Closure;
 use Eloquent;
 use App\I18n\Translatable;
 use Database\Factories\TodoFactory;
@@ -35,24 +36,57 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Todo lang()
  * @property-read Translation $translatables
  * @method static Builder|Todo translated()
+ * @method static Builder|Todo hasNestedUsingJoins($relations, $operator = '>=', $count = 1, $boolean = 'and', ?Closure $callback = null)
+ * @method static Builder|Todo joinNestedRelationship(string $relationships, $callback = null, $joinType = 'join', $useAlias = false, bool $disableExtraConditions = false)
+ * @method static Builder|Todo joinRelation($relationName, $callback = null, $joinType = 'join', $useAlias = false, bool $disableExtraConditions = false)
+ * @method static Builder|Todo joinRelationship($relationName, $callback = null, $joinType = 'join', $useAlias = false, bool $disableExtraConditions = false)
+ * @method static Builder|Todo joinRelationshipUsingAlias($relationName, $callback = null, bool $disableExtraConditions = false)
+ * @method static Builder|Todo leftJoinRelation($relation, $callback = null, $useAlias = false, bool $disableExtraConditions = false)
+ * @method static Builder|Todo leftJoinRelationship($relation, $callback = null, $useAlias = false, bool $disableExtraConditions = false)
+ * @method static Builder|Todo leftJoinRelationshipUsingAlias($relationName, $callback = null, bool $disableExtraConditions = false)
+ * @method static Builder|Todo orderByLeftPowerJoins($sort, $direction = 'asc')
+ * @method static Builder|Todo orderByLeftPowerJoinsAvg($sort, $direction = 'asc')
+ * @method static Builder|Todo orderByLeftPowerJoinsCount($sort, $direction = 'asc')
+ * @method static Builder|Todo orderByLeftPowerJoinsMax($sort, $direction = 'asc')
+ * @method static Builder|Todo orderByLeftPowerJoinsMin($sort, $direction = 'asc')
+ * @method static Builder|Todo orderByLeftPowerJoinsSum($sort, $direction = 'asc')
+ * @method static Builder|Todo orderByPowerJoins($sort, $direction = 'asc', $aggregation = null, $joinType = 'join')
+ * @method static Builder|Todo orderByPowerJoinsAvg($sort, $direction = 'asc')
+ * @method static Builder|Todo orderByPowerJoinsCount($sort, $direction = 'asc')
+ * @method static Builder|Todo orderByPowerJoinsMax($sort, $direction = 'asc')
+ * @method static Builder|Todo orderByPowerJoinsMin($sort, $direction = 'asc')
+ * @method static Builder|Todo orderByPowerJoinsSum($sort, $direction = 'asc')
+ * @method static Builder|Todo powerJoinDoesntHave($relation, $boolean = 'and', ?Closure $callback = null)
+ * @method static Builder|Todo powerJoinHas($relation, $operator = '>=', $count = 1, $boolean = 'and', ?Closure $callback = null)
+ * @method static Builder|Todo powerJoinWhereHas($relation, ?Closure $callback = null, $operator = '>=', $count = 1)
+ * @method static Builder|Todo rightJoinRelation($relation, $callback = null, $useAlias = false, bool $disableExtraConditions = false)
+ * @method static Builder|Todo rightJoinRelationship($relation, $callback = null, $useAlias = false, bool $disableExtraConditions = false)
+ * @method static Builder|Todo rightJoinRelationshipUsingAlias($relationName, $callback = null, bool $disableExtraConditions = false)
+ * @property-read Collection|Translation[] $translations
+ * @property-read int|null $translations_count
  */
 class Todo extends Model
 {
     use Translatable;
 
     protected $appends = ['doneState','doneIcon'];
-    protected $fillable = [
+    protected $fillable = ['text', 'done'];
+
+    public $translatables = ['text'];
+    public $selectColumns = [
+        'id',
+        'done',
         'text',
-        'done'
+        'created_at',
+        'updated_at',
     ];
-    protected $translatables = ['text'];
 
     public function getDoneStateAttribute()
     {
         if($this->done) {
-            return "DONE";
+            return 'DONE';
         } else {
-            return "NOT DONE";
+            return 'NOT DONE';
         }
     }
 
