@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
         Builder::macro('toRawSql', function() {
             $sql = str_replace('?', "'%s'", $this->toSql());
             $sql = vsprintf($sql, $this->getBindings());
-            die($sql);
+            dd($sql);
         });
 /*
  * set https protocol, if environment is not local
