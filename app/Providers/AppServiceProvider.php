@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Models\Author;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
@@ -38,11 +40,17 @@ class AppServiceProvider extends ServiceProvider
         View::share('authorOptions', Author::options());
         View::share('currentTimestamp', Carbon::now()->timestamp);
         View::share('authorOptions', Author::options());
-/*
- * set https protocol, if environment is not local
-        if(!$this->app->environment('local')) {
-            URL::forceScheme('https');
-        }
-*/
+        Builder::macro('toRawSql', function() {
+            $sql = str_replace('?', "'%s'", $this->toSql());
+            $sql = vsprintf($sql, $this->getBindings());
+            dd($sql);
+        });
+
+        /*
+         * set https protocol, if environment is not local
+                if(!$this->app->environment('local')) {
+                    URL::forceScheme('https');
+                }
+        */
     }
 }
