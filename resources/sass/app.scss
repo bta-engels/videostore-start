@@ -36,19 +36,17 @@ table {
 .navbar {
     &.navbar-expand-md {
         .navbar-nav {
-            &.right {
-                position: absolute;
-                right: 1.0rem;
-            }
             .nav-item {
-                .nav-link {
-                    &.activeRoute {
+                &.active {
+                    a {
                         color: #c00;
                         font-weight: bold;
                         @include media("<tablet") {
                             color: green;
                         }
                     }
+                }
+                .nav-link {
                 }
                 &.spacer {
                     width: 0.8rem;
@@ -83,6 +81,10 @@ table {
                         }
                     }
                 }
+            }
+            &.right {
+                position: absolute;
+                right: 1.0rem;
             }
         }
     }
