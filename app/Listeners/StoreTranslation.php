@@ -21,18 +21,15 @@ class StoreTranslation
      */
     public function handle(OnUpdated $event)
     {
-        $translatables = $event->model->translatables;
-        if(!$translatables) {
+        if(!$event->model->translatables) {
             return null;
         }
-
         $where = [
             'language'              => App::getLocale(),
             'translatable_id'       => $event->model->id,
             'translatable_type'     => get_class($event->model),
         ];
-        $data = array_merge($where, ['content' =>  $this->toObject($event->model, $translatables)]);
-
+        $data = array_merge($where, ['content' => $this->toObject($event->data, $event->model->translatables)]);
         $translation = Translation::firstWhere($where) ?? new Translation();
         $translation->fill($data)->save();
     }
@@ -42,12 +39,13 @@ class StoreTranslation
      *
      * @return stdClass
      */
-    private function toObject($model, array $translatables)
+    private function toObject(array $data, array $translatables)
     {
-        $obj = new stdClass();
-        foreach ($translatables as $attr) {
-            $obj->$attr = $model->$attr;
-        }
-        return $obj;
+        $data = collect($data)->filter(function($item, $key) use ($translatables) {
+            if(in_array($key, $translatables)) {
+                return $item;
+            }
+        });
+        return json_decode($data);
     }
 }
