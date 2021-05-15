@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App;
 use App\Events\OnUpdated;
 use App\Models\Translation;
+use stdClass;
 
 class StoreTranslation
 {
@@ -24,7 +25,7 @@ class StoreTranslation
             'translatable_id'       => $event->model->id,
             'translatable_type'     => get_class($event->model),
         ];
-        $data = array_merge($where, ['content' => $this->toObject($event->model, $event->data)]);
+        $data = array_merge($where, ['content' => $this->toObject($event->data, $event->model->translatables)]);
         $translation = Translation::firstWhere($where) ?? new Translation();
         $translation->fill($data)->save();
     }
@@ -34,10 +35,10 @@ class StoreTranslation
      *
      * @return stdClass
      */
-    private function toObject($model, array $data)
+    private function toObject(array $data, array $translatables)
     {
-        $data = collect($data)->filter(function($item, $key) use ($model) {
-            if(in_array($key, $model->translatables)) {
+        $data = collect($data)->filter(function($item, $key) use ($translatables) {
+            if(in_array($key, $translatables)) {
                 return $item;
             }
         });
