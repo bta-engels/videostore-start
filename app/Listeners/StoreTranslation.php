@@ -16,8 +16,8 @@ class StoreTranslation
      */
     public function handle(OnUpdated $event)
     {
-        if(!$event->model->getTranslatables()) {
-            die('nix is');
+        if(!$event->model->translatables) {
+            return null;
         }
         $where = [
             'language'              => App::getLocale(),
@@ -34,12 +34,13 @@ class StoreTranslation
      *
      * @return stdClass
      */
-    private function toObject($model, array $translatables)
+    private function toObject($model, array $data)
     {
-        $obj = new stdClass();
-        foreach ($translatables as $attr) {
-            $obj->$attr = $model->$attr;
-        }
-        return $obj;
+        $data = collect($data)->filter(function($item, $key) use ($model) {
+            if(in_array($key, $model->translatables)) {
+                return $item;
+            }
+        });
+        return json_decode($data);
     }
 }
