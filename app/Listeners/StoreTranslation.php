@@ -24,23 +24,21 @@ class StoreTranslation
             'translatable_id'       => $event->model->id,
             'translatable_type'     => get_class($event->model),
         ];
-        $data = array_merge($where, ['content' => $this->toObject($event->data)]);
+        $data = array_merge($where, ['content' => $this->toObject($event->model, $event->data)]);
         $translation = Translation::firstWhere($where) ?? new Translation();
         $translation->fill($data)->save();
     }
 
     /**
-     * Get the translation attribute as object.
+     * Get the translation attribute.
      *
-     * @return Translation
+     * @return stdClass
      */
-    public function toObject(array $data)
+    private function toObject($model, array $translatables)
     {
         $obj = new stdClass();
-        foreach ($this->translatables as $attr) {
-            if(in_array($attr, array_keys($data))) {
-                $obj->$attr = $data[$attr];
-            }
+        foreach ($translatables as $attr) {
+            $obj->$attr = $model->$attr;
         }
         return $obj;
     }
