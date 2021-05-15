@@ -40,7 +40,7 @@ class Todo extends Model
 
     protected $appends = ['doneState','doneIcon'];
     protected $fillable = ['text', 'done'];
-    protected $translatables = ['text'];
+    public $translatables = ['text'];
 
     public function getTextAttribute($value)
     {

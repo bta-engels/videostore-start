@@ -5,8 +5,6 @@
  */
 namespace App\I18n;
 
-use stdClass;
-use Illuminate\Support\Str;
 use App\Models\Translation;
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Builder;
@@ -39,31 +37,6 @@ trait Translatable {
             return $data->content;
         }
         return $this;
-    }
-
-    /**
-     * get availables translations fiedls
-     * @return null
-     */
-    public function getTranslatables()
-    {
-        return ($this->translatables && count($this->translatables) > 0) ? $this->translatables : null;
-    }
-
-    /**
-     * Get the translation attribute as object.
-     *
-     * @return Translation
-     */
-    public function toObject(array $data)
-    {
-        $obj = new stdClass();
-        foreach ($this->translatables as $attr) {
-            if(in_array($attr, array_keys($data))) {
-                $obj->$attr = $data[$attr];
-            }
-        }
-        return $obj;
     }
 
     public function __get($attribute)

@@ -35,7 +35,7 @@ class Movie extends Model {
     use Translatable;
 
     protected $fillable = ['author_id', 'title', 'price', 'image'];
-    protected $translatables = ['title'];
+    public $translatables = ['title'];
 
     public function getTitleAttribute($value)
     {
