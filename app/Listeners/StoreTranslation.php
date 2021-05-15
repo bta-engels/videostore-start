@@ -50,5 +50,4 @@ class StoreTranslation
         }
         return $obj;
     }
-
 }
