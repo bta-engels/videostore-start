@@ -40,7 +40,7 @@ class StoreTranslation
     /**
      * Get the translation attribute.
      *
-     * @return Translation
+     * @return stdClass
      */
     private function toObject($model, array $translatables)
     {
