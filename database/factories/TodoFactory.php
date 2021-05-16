@@ -23,7 +23,7 @@ class TodoFactory extends Factory
     {
         return [
             'done'  => $this->faker->boolean,
-            'text'  => $this->faker->text(50),
+            'text'  => $this->faker->text(),
         ];
     }
 }

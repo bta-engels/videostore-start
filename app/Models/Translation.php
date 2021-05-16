@@ -1,10 +1,13 @@
 <?php
 namespace App\Models;
 
+use App;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use stdClass;
 
 /**
  * App\Models\Translation
@@ -28,8 +31,10 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Translation whereUpdatedAt($value)
  * @mixin Eloquent
  * @property-read Model|Eloquent $translatable
+ * @method static Builder|Translation storeTranslations()
  */
 class Translation extends Model {
+    use HasFactory;
     /**
      * The attributes that should be casted to native types.
      *
@@ -50,4 +55,37 @@ class Translation extends Model {
         'translatable_id',
         'translatable_type',
     ];
+
+    public function scopeStoreTranslation($model, array $validated, $language = null)
+    {
+        if(!$model->translatables) {
+            return null;
+        }
+        if(!$language) {
+            $language = App::getLocale();
+        }
+        $where = [
+            'language'              => $language,
+            'translatable_id'       => $model->id,
+            'translatable_type'     => get_class($model),
+        ];
+        $data = array_merge($where, ['content' => $this->toObject($validated, $model->translatables)]);
+        $translation = self::firstWhere($where) ?? new static();
+        $translation->fill($data)->save();
+    }
+
+    /**
+     * Get the translation attributes as object.
+     *
+     * @return stdClass
+     */
+    private function toObject(array $data, array $translatables)
+    {
+        $data = collect($data)->filter(function($item, $key) use($translatables)  {
+            if(in_array($key, $translatables)) {
+                return $item;
+            }
+        });
+        return json_decode($data);
+    }
 }
