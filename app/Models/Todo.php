@@ -6,6 +6,7 @@ use App\I18n\Translatable;
 use Database\Factories\TodoFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -36,7 +37,7 @@ use Illuminate\Support\Carbon;
  */
 class Todo extends Model
 {
-    use Translatable;
+    use Translatable,HasFactory;
 
     protected $appends = ['doneState','doneIcon'];
     protected $fillable = ['text', 'done'];
