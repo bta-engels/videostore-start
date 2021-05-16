@@ -1,7 +1,7 @@
 <?php
-
 namespace Database\Seeders;
 
+use DB;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 
@@ -14,12 +14,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        DB::disableQueryLog();
         Schema::disableForeignKeyConstraints();
         $this->call([
 //            UserSeeder::class,
 //            AuthorSeeder::class,
 //            MovieSeeder::class,
-            TodoSeeder::class,
+//            TodoSeeder::class,
             TranslationSeeder::class,
         ]);
         Schema::enableForeignKeyConstraints();

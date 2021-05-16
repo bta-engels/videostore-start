@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\Todo;
@@ -8,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class TodoSeeder extends Seeder
 {
-    private $count = 1000000;
+    private $count = 100000;
     /**
      * Run the database seeds.
      *
@@ -16,8 +15,11 @@ class TodoSeeder extends Seeder
      */
     public function run()
     {
-        Todo::delete();
+        Todo::truncate();
         DB::unprepared('ALTER TABLE `todos` AUTO_INCREMENT = 1');
-        Todo::factory()->count($this->count)->create();
+        Todo::factory()
+            ->count($this->count)
+            ->create()
+        ;
     }
 }

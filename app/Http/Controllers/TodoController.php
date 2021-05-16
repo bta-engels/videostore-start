@@ -19,7 +19,7 @@ class TodoController extends Controller
     {
         $data = Todo::translated()
             ->orderBy("created_at", 'desc')
-            ->paginate(10)
+            ->paginate(50)
         ;
         if(Auth::check()) { //auth()->check()
             return view('admin.todos.index', compact('data'));
