@@ -70,7 +70,7 @@ class MovieController extends Controller
     public function store(MovieRequest $request)
     {
         $movie = Movie::create($request->validated());
-        event(new OnUpdated($movie));
+        event(new OnUpdated($movie, $request->validated()));
 
         return redirect('movies');
     }
@@ -96,7 +96,7 @@ class MovieController extends Controller
     public function update(MovieRequest $request, Movie $movie)
     {
         $movie->update($request->validated());
-        event(new OnUpdated($movie->refresh()));
+        event(new OnUpdated($movie->refresh(), $request->validated()));
 
         return redirect('movies');
     }

@@ -2,12 +2,12 @@
 namespace App\Models;
 
 use App;
-use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 use stdClass;
+use Eloquent;
+use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\Translation
@@ -56,7 +56,7 @@ class Translation extends Model {
         'translatable_type',
     ];
 
-    public function scopeStoreTranslation($model, array $validated, $language = null)
+    public static function storeTranslation(Model $model, array $validated, $language = null)
     {
         if(!$model->translatables) {
             return null;
@@ -69,7 +69,7 @@ class Translation extends Model {
             'translatable_id'       => $model->id,
             'translatable_type'     => get_class($model),
         ];
-        $data = array_merge($where, ['content' => $this->toObject($validated, $model->translatables)]);
+        $data = array_merge($where, ['content' => self::toObject($validated, $model->translatables)]);
         $translation = self::firstWhere($where) ?? new static();
         $translation->fill($data)->save();
     }
@@ -79,7 +79,7 @@ class Translation extends Model {
      *
      * @return stdClass
      */
-    private function toObject(array $data, array $translatables)
+    private static function toObject(array $data, array $translatables)
     {
         $data = collect($data)->filter(function($item, $key) use($translatables)  {
             if(in_array($key, $translatables)) {
