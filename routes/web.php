@@ -72,7 +72,8 @@ Route::group([
             return Redirect::route('movies');
         })
     ;
-    //->where('author', '[0-9]+'); // Make sure the id only contains numbers -> Better in RouteServiceProvider!!!
+    Route::get('pdf/{movie}', [MovieController::class, 'pdf'])
+        ->name('movies.pdf');
 });
 
 // movie routen für verwaltung
