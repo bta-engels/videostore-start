@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 Use App\Http\Controllers\Api\ApiTodoController;
+Use App\Http\Controllers\Api\ApiMovieController;
 use App\Http\Controllers\Api\ApiLoginController;
 
 /*
@@ -24,6 +25,14 @@ Route::apiResource('todos', ApiTodoController::class)
     ->only(['index','show'])
 ;
 Route::apiResource('todos', ApiTodoController::class)
+    ->except(['index','show'])
+    ->middleware('auth:sanctum')
+;
+
+Route::apiResource('movies', ApiMovieController::class)
+    ->only(['index','show'])
+;
+Route::apiResource('movies', ApiMovieController::class)
     ->except(['index','show'])
     ->middleware('auth:sanctum')
 ;
