@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 Use App\Http\Controllers\Api\ApiTodoController;
 Use App\Http\Controllers\Api\ApiMovieController;
+use App\Http\Controllers\Api\ApiAuthorController;
 use App\Http\Controllers\Api\ApiLoginController;
 
 /*
@@ -35,6 +36,10 @@ Route::apiResource('movies', ApiMovieController::class)
 Route::apiResource('movies', ApiMovieController::class)
     ->except(['index','show'])
     ->middleware('auth:sanctum')
+;
+
+Route::apiResource('authors', ApiAuthorController::class)
+    ->only(['index'])
 ;
 
 Route::fallback(function () {
