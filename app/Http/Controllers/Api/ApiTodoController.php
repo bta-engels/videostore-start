@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\OnUpdated;
 use Exception;
 use App\Models\Todo;
 use Illuminate\Http\Response;
 use App\Http\Resources\TodoResource;
 use App\Http\Requests\Api\ApiTodoRequest as Request;
+use Illuminate\Support\Facades\Event;
 
 class ApiTodoController extends ApiController
 {
@@ -67,7 +69,9 @@ class ApiTodoController extends ApiController
             if($request->errors) {
                 $this->error = $request->errors;
             } else {
-                $this->data = New TodoResource(Todo::create($request->validated()));
+                $todo = Todo::create($request->validated());
+                $this->data = New TodoResource($todo);
+                Event::dispatch(new OnUpdated($todo, $request->validated()));
             }
         } catch (Exception $e) {
             $this->error = $e->getMessage();
@@ -93,7 +97,9 @@ class ApiTodoController extends ApiController
                 $todo = Todo::find($id);
                 if($todo) {
                     $todo->update($request->validated());
-                    $this->data = new TodoResource($todo->refresh());
+                    $todo = $todo->refresh();
+                    $this->data = new TodoResource($todo);
+                    Event::dispatch(new OnUpdated($todo, $request->validated()));
                 }
             }
         } catch (Exception $e) {
