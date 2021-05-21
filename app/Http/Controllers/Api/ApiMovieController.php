@@ -20,7 +20,12 @@ class ApiMovieController extends ApiController
     public function index()
     {
         try {
-            $this->data = MovieResource::collection(Movie::all()->take(20));
+            $this->data = MovieResource::collection(
+                Movie::query()
+                    ->orderByDesc('id')
+                    ->get()
+                    ->take(20)
+            );
         } catch (Exception $e) {
             $this->error = $e->getMessage();
         }
