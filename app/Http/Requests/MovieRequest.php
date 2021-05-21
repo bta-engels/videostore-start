@@ -46,7 +46,7 @@ class MovieRequest extends FormRequest
     {
         return [
             'author_id'     =>  'required',
-            'title'         =>  'required',
+            'title'         =>  'required|min:3',
             'price'         =>  'required',
             'image'         =>  'nullable|image'
         ];
@@ -55,10 +55,11 @@ class MovieRequest extends FormRequest
     public function messages()
     {
         return [
-          'author_id.required'  =>  'Bitte einen Autoren wählen!',
-          'title.required'      =>  'Bitte einen Titel setzen!',
-          'price.required'      =>  'Bitte einen Preis setzen!',
-          'image.image'         =>  'Datei muss eine Bild-Datei sein!'
+            'author_id.required'  =>  'Bitte einen Autoren wählen!',
+            'title.required'      =>  'Bitte einen Titel eingeben!',
+            'title.min'           =>  'Der Titel benötigt wenigstens :min Zeichen!',
+            'price.required'      =>  'Bitte einen Preis eingeben!',
+            'image.image'         =>  'Datei muss eine Bild-Datei sein!'
         ];
     }
 }

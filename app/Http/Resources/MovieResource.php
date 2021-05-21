@@ -23,7 +23,7 @@ class MovieResource extends JsonResource
             'author_id' => $this->author_id,
             'title'     => $this->title,
             'price'     => $this->price,
-            'author'    => $this->author,
+            'author'    => new AuthorResource($this->author),
         ];
     }
 }

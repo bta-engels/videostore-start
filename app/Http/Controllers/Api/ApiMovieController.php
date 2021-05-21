@@ -21,7 +21,7 @@ class ApiMovieController extends ApiController
     {
         try {
             $this->data = MovieResource::collection(
-                Movie::query()
+                Movie::with('author')
                     ->orderByDesc('id')
                     ->get()
                     ->take(20)
