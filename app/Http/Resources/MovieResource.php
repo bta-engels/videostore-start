@@ -20,9 +20,10 @@ class MovieResource extends JsonResource
          */
         return [
             'id'        => $this->id,
-            'author'    => $this->author,
+            'author_id' => $this->author_id,
             'title'     => $this->title,
             'price'     => $this->price,
+            'author'    => $this->author,
         ];
     }
 }
